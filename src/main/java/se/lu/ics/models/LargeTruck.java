@@ -1,24 +1,38 @@
 package se.lu.ics.models;
+
 import java.time.LocalDate;
 
 public class LargeTruck extends Vehicle {
 
     private static final double MAX_CARGO_CAPACITY = 10000; // Maximum cargo capacity for large truck
-    private double cargoCapacity;
-    
-    
-  
 
-    public LargeTruck(String make, String model, String brand, int year, String currentLocation, int currentMileage, LocalDate lastServiceDate, double cargoCapacity, int lastServiceDistance) {
-        super(make, model, brand, year, currentLocation, currentMileage, lastServiceDate, cargoCapacity, lastServiceDistance);
-        this.cargoCapacity = Math.min(cargoCapacity, MAX_CARGO_CAPACITY);
+    public LargeTruck(String model, String brand, int year, String currentLocation, int currentMileage, LocalDate lastServiceDate, double currentCargo, int lastServiceDistance) {
+        // Call to the super constructor of Vehicle
+        super(model, brand, year, currentLocation, currentMileage, lastServiceDate, MAX_CARGO_CAPACITY, currentCargo, lastServiceDistance);
     }
 
-    public double getCargoCapacity() {
-        return cargoCapacity;
+    
+
+    
+    @Override
+    public void setCurrentCargo(double currentCargo) {
+        if (currentCargo <= MAX_CARGO_CAPACITY) {
+            super.setCurrentCargo(currentCargo);
+        } else {
+            System.out.println("Current cargo exceeds maximum capacity for Large Truck, setting to maximum capacity.");
+            super.setCurrentCargo(MAX_CARGO_CAPACITY);
+        }
     }
 
+    @Override
+    protected String getVehicleType() {
+        return "LargeTruck";
+    }
+    
+
+    
 }
+
 
 
 

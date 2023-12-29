@@ -20,8 +20,7 @@ public class MaintenanceSchedule {
 
     public MaintenanceSchedule(ServiceHistory serviceHistory) {
         this.serviceHistory = serviceHistory;
-        this.lastServiceDistance = 25000;
-        this.lastServiceDate = LocalDate.now(); // Assuming service was 2 months ago
+        this.lastServiceDate = LocalDate.now(); 
     }
 
     public void performService(Service.ServiceType serviceType, Vehicle vehicle, WorkShop workshop) {

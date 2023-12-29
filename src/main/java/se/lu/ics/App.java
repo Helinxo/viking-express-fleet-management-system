@@ -32,6 +32,9 @@ import se.lu.ics.models.Service.ServiceType;
 
             MaintenanceSchedule maintenanceSchedule1 = new MaintenanceSchedule(10000, LocalDate.of(2019, 10, 10));
 
+            
+
+
 
             
 
@@ -52,9 +55,10 @@ import se.lu.ics.models.Service.ServiceType;
 
             // Create all different vehicles
 
-            LargeTruck largeTruck = new LargeTruck("Volvo", "FH16", "Volvo", 2019, "Malmö", 10000, LocalDate.of(2019, 10, 10), 10000, 10000);
-            MediumTruck mediumTruck = new MediumTruck("Mercedes Truck", "Actros", "Mercedes", 2019, "Malmö", 10000, LocalDate.of(2019, 10, 10), 5000, 10000);
-            Van van= new Van("Mercedes Van", "Sprinter", "Mercedes", 2019, "Malmö", 10000, LocalDate.of(2019, 10, 10), 2500, 10000);
+            LargeTruck largeTruck = new LargeTruck("FH16", "Volvo", 2019, "Malmö", 10000, LocalDate.of(2019, 10, 10), 10000, 10000);
+            MediumTruck mediumTruck = new MediumTruck("FH16", "Volvo", 2019, "Malmö", 10000, LocalDate.of(2019, 10, 10), 5000, 10000);
+            Van van = new Van("FH16", "Volvo", 2019, "Malmö", 10000, LocalDate.of(2019, 10, 10), 1000, 10000);
+
 
             // Add all vehicles to the fleet manager
 
@@ -86,13 +90,13 @@ import se.lu.ics.models.Service.ServiceType;
             // add service to service history
 
             
-            fleetManager.addVehicle(largeTruck);
+           
             fleetManager.setServiceHistory(largeTruck, serviceHistoryLargeTruck);
             
-            fleetManager.addVehicle(mediumTruck);
+          
             fleetManager.setServiceHistory(mediumTruck, serviceHistoryMediumTruck);
             
-            fleetManager.addVehicle(van);
+           
             fleetManager.setServiceHistory(van, serviceHistoryVan);
             
 
@@ -102,7 +106,12 @@ import se.lu.ics.models.Service.ServiceType;
             serviceHistoryMediumTruck.addService(service2);
             serviceHistoryVan.addService(service3);
 
-            // print workshop for vehicle
+            // print vehicles
+
+            fleetManager.printWorkshopsForVehicle(largeTruck);
+
+            
+            
 
     }
 }

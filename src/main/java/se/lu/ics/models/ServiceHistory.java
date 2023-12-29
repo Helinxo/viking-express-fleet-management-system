@@ -45,11 +45,6 @@ public class ServiceHistory {
         return totalCost;
     }
 
-    public Service getMostExpensiveMaintenanceJob() {
-        return services.stream()
-                .max(Comparator.comparing(Service::getServiceCost))
-                .orElse(null);
-    }
 
     // Check if the amount of service exceeds a certain threshold
     public void checkServiceAmountWarning(double threshold) {
@@ -78,5 +73,4 @@ public class ServiceHistory {
         this.services = services;
     }
 
-    
 }

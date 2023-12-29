@@ -1,8 +1,12 @@
 package se.lu.ics.models;
+import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+
+
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -131,23 +135,28 @@ public void printServiceHistoryForWorkshop(WorkShop workshop) {
     public void printWorkshopsForVehicle(Vehicle vehicle) {
         Set<WorkShop> servicedWorkshops = new HashSet<>();
         ServiceHistory history = vehicleServiceHistories.get(vehicle);
-
+    
+        System.out.println("----- Workshops Servicing Vehicle -----");
+        System.out.println("Vehicle ID: " + vehicle.getVehicleId() + " (" + vehicle.getBrand() + " " + vehicle.getModel() + ", " + vehicle.getYear() + ")");
+        
         if (history != null) {
             for (Service service : history.getServices()) {
                 servicedWorkshops.add(service.getWorkShop());
             }
         }
-
+    
         if (servicedWorkshops.isEmpty()) {
             System.out.println("No workshops found for this vehicle.");
         } else {
-            System.out.println("Workshops for Vehicle ID: " + vehicle.getVehicleId());
+            int count = 1;
             for (WorkShop workshop : servicedWorkshops) {
-                System.out.println(workshop.getName());
-
-                }
+                System.out.println(count + ". " + workshop.getName() + " - Address: " + workshop.getAddress());
+                count++;
             }
         }
+        System.out.println("--------------------------------------");
+    }
+    
             
 
 
@@ -169,54 +178,108 @@ public void printServiceHistoryForWorkshop(WorkShop workshop) {
         vehicleServiceHistories.put(vehicle, serviceHistory);
     }
 
-    // test
+    public void printServiceHistoryForVehicle(Vehicle vehicle) {
+        ServiceHistory history = vehicleServiceHistories.get(vehicle);
+        if (history != null) {
+            history.printServiceHistory();
+        } else {
+            System.out.println("No service history found for this vehicle.");
+        }
+    }
 
-    public Service getMostExpensiveMaintenanceJob() {
+    // Method to print the total cost for a specific vehicle
+
+    public void printTotalCostForVehicle(Vehicle vehicle) {
+        ServiceHistory history = vehicleServiceHistories.get(vehicle);
+        if (history != null) {
+            double totalCost = history.calculateTotalCost();
+            NumberFormat formatter = NumberFormat.getCurrencyInstance(Locale.US);
+    
+            System.out.println("Vehicle: " + vehicle.getModel() + " (VIN: " + vehicle.getVehicleId() + ")");
+            System.out.println("Total cost for vehicle service" + formatter.format(totalCost));
+        } else {
+            System.out.println("No service history found for this vehicle.");
+        }
+    }
+    
+    // Method to print the total cost for the entire fleet
+    
+
+    public void printTotalCostForFleet() {
+        double totalFleetCost = 0;
+        NumberFormat formatter = NumberFormat.getCurrencyInstance(Locale.US);
+    
+        for (Vehicle vehicle : vehicles) {
+            ServiceHistory history = vehicleServiceHistories.get(vehicle);
+            if (history != null) {
+                double totalCost = history.calculateTotalCost();
+                totalFleetCost += totalCost;
+    
+                System.out.println("Vehicle: " + vehicle.getModel() + " (VIN: " + vehicle.getVehicleId() + ")");
+                System.out.println("Total cost for vehicle: " + formatter.format(totalCost));
+            }
+        }
+    
+        System.out.println("\nTotal cost for entire fleet: " + formatter.format(totalFleetCost));
+    }
+    
+    // Method to print the total n
+    public void printMostExpensiveMaintenanceJob() {
         Service mostExpensiveService = null;
-        double maxCost = 0;
-
-        for (Map.Entry<Vehicle, ServiceHistory> entry : vehicleServiceHistories.entrySet()) {
-            for (Service service : entry.getValue().getServices()) {
+        double maxTotalCost = 0;
+    
+        for (ServiceHistory history : vehicleServiceHistories.values()) {
+            for (Service service : history.getServices()) {
                 double totalCost = service.getServiceCost() + service.getPartCost();
-                if (totalCost > maxCost) {
-                    maxCost = totalCost;
+                if (totalCost > maxTotalCost) {
+                    maxTotalCost = totalCost;
                     mostExpensiveService = service;
                 }
             }
         }
-
-        return mostExpensiveService;
+    
+        if (mostExpensiveService != null) {
+            System.out.println("Most Expensive Maintenance Job:");
+            System.out.println(mostExpensiveService);
+            // Optionally, print the total cost as well
+            NumberFormat formatter = NumberFormat.getCurrencyInstance(Locale.US);
+            System.out.println("Total Cost: " + formatter.format(maxTotalCost));
+        } else {
+            System.out.println("No maintenance jobs found.");
+        }
     }
+    
 
     public void printMostExpensiveWorkshop() {
-        Map<WorkShop, Double> workshopCosts = new HashMap<>();
+    Map<WorkShop, Double> workshopCosts = new HashMap<>();
+    NumberFormat formatter = NumberFormat.getCurrencyInstance(Locale.US);
 
-        for (ServiceHistory history : vehicleServiceHistories.values()) {
-            for (Service service : history.getServices()) {
-                WorkShop workshop = service.getWorkShop();
-                double cost = service.getServiceCost() + service.getPartCost(); // Assuming these methods return the cost
-
-                workshopCosts.put(workshop, workshopCosts.getOrDefault(workshop, 0.0) + cost);
-            }
-        }
-
-        double maxCost = 0;
-        WorkShop mostExpensiveWorkshop = null;
-
-        for (Map.Entry<WorkShop, Double> entry : workshopCosts.entrySet()) {
-            if (entry.getValue() > maxCost) {
-                maxCost = entry.getValue();
-                mostExpensiveWorkshop = entry.getKey();
-            }
-        }
-
-        if (mostExpensiveWorkshop != null) {
-            System.out.println("Most Expensive Workshop: " + mostExpensiveWorkshop.getName());
-            System.out.println("Total Cost: " + maxCost);
-        } else {
-            System.out.println("No workshops found.");
+    for (ServiceHistory history : vehicleServiceHistories.values()) {
+        for (Service service : history.getServices()) {
+            WorkShop workshop = service.getWorkShop();
+            double cost = service.getServiceCost() + service.getPartCost();
+            workshopCosts.put(workshop, workshopCosts.getOrDefault(workshop, 0.0) + cost);
         }
     }
+
+    double maxCost = 0;
+    WorkShop mostExpensiveWorkshop = null;
+
+    for (Map.Entry<WorkShop, Double> entry : workshopCosts.entrySet()) {
+        if (entry.getValue() > maxCost) {
+            maxCost = entry.getValue();
+            mostExpensiveWorkshop = entry.getKey();
+        }
+    }
+
+    if (mostExpensiveWorkshop != null) {
+        System.out.println("Most Expensive Workshop: " + mostExpensiveWorkshop.getName());
+        System.out.println("Total Cost: " + formatter.format(maxCost));
+    } else {
+        System.out.println("No workshops found.");
+    }
+}
+
 
 
 }

@@ -5,20 +5,29 @@ import java.time.LocalDate;
 public class Van extends Vehicle {
 
     private static final double MAX_CARGO_CAPACITY = 2500; // Maximum cargo capacity for Van
-    private double cargoCapacity;
 
-    public Van(String make, String model, String brand, int year, String currentLocation, int currentMileage, LocalDate lastServiceDate, double cargoCapacity, int lastServiceDistance) {
-        super(make, model, brand, year, currentLocation, currentMileage, lastServiceDate, cargoCapacity, lastServiceDistance);
-        this.cargoCapacity = Math.min(cargoCapacity, MAX_CARGO_CAPACITY);
-    }
-
-    public double getCargoCapacity() {
-        return cargoCapacity;
+    public Van(String model, String brand, int year, String currentLocation, int currentMileage, LocalDate lastServiceDate, double currentCargo, int lastServiceDistance) {
+        // Call to the super constructor of Vehicle
+        super(model, brand, year, currentLocation, currentMileage, lastServiceDate, MAX_CARGO_CAPACITY, currentCargo, lastServiceDistance);
     }
 
     
+    @Override
+    public void setCurrentCargo(double currentCargo) {
+        if (currentCargo <= MAX_CARGO_CAPACITY) {
+            super.setCurrentCargo(currentCargo);
+        } else {
+            System.out.println("Current cargo exceeds maximum capacity for Van, setting to maximum capacity.");
+            super.setCurrentCargo(MAX_CARGO_CAPACITY);
+        }
+    }
 
-    
+    @Override
+    protected String getVehicleType() {
+        return "Van";
+    }
+
+
 }
 
    
