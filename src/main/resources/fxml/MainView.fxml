@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<StackPane fx:id="stackPaneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="596.0" prefWidth="803.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+fx:controller = "se.lu.ics.controllers.MainViewController"> 
+   <children>
+      <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab fx:id="tabHome" text="Home ">
+            <content>
+              <AnchorPane fx:id="anchorPaneHomeTab" minHeight="0.0" minWidth="0.0" prefHeight="412.0" prefWidth="646.0" style="-fx-background-color: black;">
+                     <children>
+                        <ImageView fx:id="imageViewVikingExpress" fitHeight="282.0" fitWidth="803.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../../Desktop/VikingExpress.png" />
+                           </image>
+                        </ImageView>
+                        <TextArea fx:id="textAreaHomeTab" editable="false" layoutY="276.0" prefHeight="290.0" prefWidth="803.0" style="-fx-control-inner-background: black; -fx-text-fill: white;" text="Established in 1990, Viking Express is a premier logistics leader in Sweden. Founded by Gunnar Storm  and Bryce Fenwick, our company blends local expertise with international logistics proficiency. Known for  reliability and customer-centricity, we prioritize building lasting partnerships. Viking Express operates with a streamlined organizational hierarchy, ensuring efficient operations and effective management. Our  commitment to trust, reliability, and quality service is reflected in our uncomplicated structure.&#10;&#10;Explore Viking Express for logistics excellence. Your success is our priority.&#10;&#10;Key Achievements:&#10;- Rapid regional expansion by 1992.&#10;- Diversified fleet and introduced digital routing solutions in the late '90s and early 2000s.&#10;- Committed to sustainability with eco-friendly fleet upgrades and operational policies from 2005 to 2010.&#10;- Nationwide presence achieved in 2013, followed by significant client base expansion through partnerships in 2016.&#10;&#10;Recent Developments:&#10;- Implemented manual data analysis for operations in 2019.&#10;- Expanded storage facilities in key urban centers in 2022 to meet growing demand." wrapText="true" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab fx:id="tabVehicle" text="Vehicle ">
+            <content>
+              <AnchorPane fx:id="anchorPaneVehicleTab" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label fx:id="labelRegisterNewVehicle" layoutX="100.0" layoutY="35.0" text="Register a new vehicle : " />
+                        <Label fx:id="labelVehicleType" layoutX="48.0" layoutY="94.0" text="Vehicle type " />
+                        <Label fx:id="labelBrand" layoutX="55.0" layoutY="150.0" text="Brand" />
+                        <Label fx:id="labelModel" layoutX="53.0" layoutY="195.0" text="Model" />
+                        <Label fx:id="labelYear" layoutX="58.0" layoutY="242.0" text="Year" />
+                        <Label fx:id="labelCargoCapacity" layoutX="30.0" layoutY="290.0" text="Cargo capacity " />
+                        <Label fx:id="labelUpdateVehicleInformation" layoutX="40.0" layoutY="402.0" text="Update vehicle information : " />
+                        <Label fx:id="labelNewVehicleInformation" layoutX="36.0" layoutY="482.0" text="2. Fill in the fields with new information" />
+                        <Button fx:id="buttonGenerateVin" layoutX="37.0" layoutY="347.0" mnemonicParsing="false" onAction="#handleButtonGenerateVinAction" prefHeight="32.0" prefWidth="126.0" text="Generate vin " />
+                        <Button fx:id="buttonAddVehicle" layoutX="181.0" layoutY="347.0" mnemonicParsing="false" onAction="#handleButtonAddVehicleAction" prefHeight="32.0" prefWidth="126.0" text="Add vehicle " />
+                        <Button fx:id="buttonSaveChanges" layoutX="58.0" layoutY="511.0" mnemonicParsing="false" onAction="#handleButtonSaveChangesAction" prefHeight="34.0" prefWidth="163.0" text="Save changes " />
+                        <TextField fx:id="textFieldEnterVinVehicle" layoutX="50.0" layoutY="438.0" promptText="Enter vin" />
+                        <Text layoutX="36.0" layoutY="455.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1." />
+                        <Text layoutX="40.0" layoutY="533.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3." />
+                        <ChoiceBox fx:id="choiceBoxVehicleType" layoutX="126.0" layoutY="90.0" prefWidth="150.0" />
+                        <TextField fx:id="textFieldBrand" layoutX="126.0" layoutY="146.0" />
+                        <TextField fx:id="textFieldModel" layoutX="129.0" layoutY="191.0" />
+                        <TextField fx:id="textFieldYear" layoutX="129.0" layoutY="238.0" />
+                        <TextField fx:id="textFieldCargoCapacity" layoutX="129.0" layoutY="286.0" />
+                        <Button fx:id="buttonDeleteVehicle" layoutX="375.0" layoutY="495.0" mnemonicParsing="false" onAction="#handleButtonDeleteVehicleAction" prefHeight="32.0" prefWidth="126.0" text="Delete vehicle " />
+                        <ScrollPane fx:id="scrollPaneVehicle" layoutX="340.0" layoutY="21.0" prefHeight="458.0" prefWidth="463.0">
+                          <content>
+                            <AnchorPane fx:id="anchorPaneVehicleTableView" minHeight="0.0" minWidth="0.0" prefHeight="467.0" prefWidth="558.0">
+                                 <children>
+                                    <TableView fx:id="tableViewVehicle" prefHeight="458.0" prefWidth="546.0">
+                                      <columns>
+                                        <TableColumn fx:id="tableColumnVehicleVin" prefWidth="83.20000916719437" text="Vin" />
+                                          <TableColumn fx:id="tableColumnVehicleType" prefWidth="91.20008850097656" text="Type" />
+                                          <TableColumn fx:id="tableColumnVehicleYear" prefWidth="100.0" text="Year" />
+                                          <TableColumn fx:id="tableColumnVehicleBrand" prefWidth="75.0" text="Brand" />
+                                        <TableColumn fx:id="tableColumnVehicleModel" prefWidth="92.0" text="Model" />
+                                          <TableColumn fx:id="tableColumnVehicleCargoCapacity" prefWidth="102.39999999999998" text="Cargo Capacity" />
+                                      </columns>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </ScrollPane>
+                        <Button fx:id="buttonCountVehicles" layoutX="519.0" layoutY="496.0" mnemonicParsing="false" onAction="#handleButtonCountVehiclesAction" prefHeight="30.0" prefWidth="125.0" text="Count vehicles" />
+                        <Button fx:id="buttonViewVehicles" layoutX="661.0" layoutY="498.0" mnemonicParsing="false" onAction="#handleButtonViewVehiclesAction" prefHeight="26.0" prefWidth="115.0" text="View vehicles" />
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+            <Tab fx:id="tabWorkshop" text="Workshop ">
+              <content>
+                <AnchorPane fx:id="anchorPaneWorkshop" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="tableViewWorkshop" layoutX="-1.0" prefHeight="402.0" prefWidth="803.0">
+                          <columns>
+                            <TableColumn fx:id="tableColumnWorkshopVin" prefWidth="100.79998779296875" text="Vin" />
+                            <TableColumn fx:id="tableColumnWorkshopId" minWidth="4.79998779296875" prefWidth="147.19995880126953" text="Workshop Id" />
+                              <TableColumn fx:id="tableColumnWorkshopType" prefWidth="148.0" text="Workshop Type" />
+                              <TableColumn fx:id="tableColumnWorkshopName" prefWidth="191.19998168945312" text="Workshop Name" />
+                              <TableColumn fx:id="tableColumnWorkshopAddress" prefWidth="214.39996337890625" text="Workshop Address" />
+                          </columns>
+                        </TableView>
+                        <Button fx:id="buttonAddWorkshop" layoutX="624.0" layoutY="427.0" mnemonicParsing="false" onAction="#handleButtonAddWorkshopAction" prefHeight="26.0" prefWidth="114.0" text="Add workshop" />
+                        <Button fx:id="buttonDeleteWorkshop" layoutX="624.0" layoutY="506.0" mnemonicParsing="false" onAction="#handleButtonDeleteWorkshopAction" prefHeight="26.0" prefWidth="114.0" text="Delete workshop" />
+                        <Button fx:id="buttonUpdateWorkshop" layoutX="624.0" layoutY="467.0" mnemonicParsing="false" onAction="#handleButtonUpdateWorkshopAction" prefHeight="26.0" prefWidth="114.0" text="Update workshop" />
+                        <Label fx:id="labelWorkshopName" layoutX="12.0" layoutY="511.0" prefHeight="26.0" prefWidth="94.0" text="Workshop Name " />
+                        <Label fx:id="labelWorkshopAddress" layoutX="288.0" layoutY="428.0" text="Workshop Address " />
+                        <Label fx:id="labelWorkshopType" layoutX="297.0" layoutY="481.0" text="Workshop Type " />
+                        <TextField fx:id="textFieldWorkshopName" layoutX="106.0" layoutY="511.0" />
+                        <TextField fx:id="textFieldWorkshopAddress" layoutX="400.0" layoutY="424.0" />
+                        <RadioButton fx:id="radioButtonInternal" layoutX="409.0" layoutY="481.0" mnemonicParsing="false" text="Internal " />
+                        <RadioButton fx:id="radioButtonExternal" layoutX="410.0" layoutY="515.0" mnemonicParsing="false" text="External" />
+                        <Label fx:id="labelVinWorkshop" layoutX="47.0" layoutY="432.0" text="Vin" />
+                        <TextField fx:id="textFieldEnterVinWorkshop" layoutX="106.0" layoutY="424.0" promptText="Enter vin" />
+                        <Label fx:id="labelWorkshopId" layoutX="24.0" layoutY="472.0" text="Workshop Id" />
+                        <TextField fx:id="textFieldWorkshopId" layoutX="106.0" layoutY="468.0" />
+                     </children></AnchorPane>
+              </content>
+            </Tab>
+            <Tab fx:id="tabMaintenanceSchedule" text="Maintenance Schedule">
+              <content>
+                <AnchorPane fx:id="anchorPaneMaintenanceScheduleTab" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label fx:id="labelVinMaintenanceSchedule" layoutX="45.0" layoutY="439.0" text="Vin" textFill="#121212">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="buttonConfirm" layoutX="617.0" layoutY="527.0" mnemonicParsing="false" onAction="#handleButtonConfirmAction" prefHeight="26.0" prefWidth="177.0" text="Confirm" />
+                        <ChoiceBox fx:id="choiceBoxPartTypes" layoutX="402.0" layoutY="505.0" prefWidth="150.0" />
+                        <ChoiceBox fx:id="choiceBoxServiceType" layoutX="402.0" layoutY="470.0" prefWidth="150.0" />
+                        <TextField fx:id="textFieldEnterVinMaintenanceSchedule" layoutX="134.0" layoutY="436.0" promptText="Enter vin" />
+                        <ChoiceBox fx:id="chioceBoxvehicleType" layoutX="402.0" layoutY="436.0" prefWidth="150.0" />
+                        <TextField fx:id="textFieldLastServiceDistance" layoutX="134.0" layoutY="470.0" />
+                        <TextField fx:id="textFieldLastServiceDate" layoutX="134.0" layoutY="505.0" />
+                        <ChoiceBox fx:id="choiceBoxWorkshop" layoutX="639.0" layoutY="436.0" prefWidth="150.0" />
+                        <Label fx:id="labelVehicleTypeMaintenanceScheduleTab" layoutX="313.0" layoutY="439.0" text="Vehicle Type">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Label>
+                        <DatePicker fx:id="datePickerDate" layoutX="617.0" layoutY="477.0" prefHeight="26.0" prefWidth="174.0" />
+                        <Label fx:id="labelWorkshop" layoutX="577.0" layoutY="440.0" text="Workshop" />
+                        <Label fx:id="labelServiceType" layoutX="316.0" layoutY="474.0" text="Service Type" />
+                        <Label fx:id="labelPartTypes" layoutX="321.0" layoutY="509.0" text="Part Types" />
+                        <Label fx:id="labelLastServiceDistance" layoutX="14.0" layoutY="474.0" text="Last Service Distance " />
+                        <Label fx:id="labelLastServiceDate" layoutX="13.0" layoutY="509.0" text="Last Service Date" />
+                        <Label fx:id="labelDate" layoutX="585.0" layoutY="481.0" text="Date" />
+                        <ScrollPane prefHeight="411.0" prefWidth="803.0">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="410.0" prefWidth="1015.0">
+                                 <children>
+                                    <TableView prefHeight="410.0" prefWidth="1015.0">
+                                      <columns>
+                                        <TableColumn fx:id="tableColumnVinMaintenanceScheduleTab" prefWidth="98.39998930692673" text="Vin " />
+                                        <TableColumn fx:id="tableColumnVehicleTypeMaintenanceScheduleTab" prefWidth="123.9999771118164" text="Vehicle Type " />
+                                          <TableColumn fx:id="tableColumnServiceTypeMaintenanceScheduleTab" prefWidth="118.39997863769531" text="Service Type" />
+                                          <TableColumn fx:id="tableColumnPartTypeMaintenanceScheduleTab" prefWidth="114.4000244140625" text="Part Type" />
+                                          <TableColumn fx:id="tableColumnWorkshopMaintenanceScheduleTab" prefWidth="133.60000610351562" text="Workshop" />
+                                          <TableColumn fx:id="tableColumnDateMaintenanceScheduleTab" prefWidth="117.59991455078125" text=" Date" />
+                                          <TableColumn fx:id="tableColumnLastServiceDistanceMaintenanceScheduleTab" prefWidth="149.5999755859375" text="Last Service Distance " />
+                                          <TableColumn fx:id="tableColumnLastServiceDateMaintenanceScheduleTab" prefWidth="139.20003662109377" text="Last Service Date" />
+                                      </columns>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </ScrollPane>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab fx:id="tabServiceHistory" text="Service History ">
+              <content>
+                <AnchorPane fx:id="anchorPaneServiceHistoryTab" minHeight="0.0" minWidth="0.0" prefHeight="448.0" prefWidth="691.0">
+                     <children>
+                        <Label fx:id="labelVinServiceHistory" layoutX="23.0" layoutY="512.0" text="Vin" />
+                        <Button fx:id="buttonAddServiceHistory" layoutX="292.0" layoutY="507.0" mnemonicParsing="false" onAction="#handleButtonAddServiceHistoryAction" prefHeight="26.0" prefWidth="114.0" text="Add " />
+                        <Button fx:id="buttonDeleteServiceHistory" layoutX="418.0" layoutY="507.0" mnemonicParsing="false" onAction="#handleButtonDeleteServiceHistory" prefHeight="26.0" prefWidth="114.0" text="Delete" />
+                        <Button fx:id="buttonUpdateServiceHistory" layoutX="547.0" layoutY="507.0" mnemonicParsing="false" onAction="#handleButtonUpdateServiceHistoryAction" prefHeight="26.0" prefWidth="114.0" text="Update" />
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="465.0" prefWidth="803.0">
+                           <children>
+                              <ScrollPane layoutX="-3.0" layoutY="-3.0" prefHeight="462.0" prefWidth="805.0">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="463.0" prefWidth="1340.0">
+                                       <children>
+                                          <TableView fx:id="tableViewServiceHistory" prefHeight="466.0" prefWidth="1340.0">
+                                            <columns>
+                                              <TableColumn fx:id="tableColumnVinServiceHistoryTab" prefWidth="90.0" text="Vin" />
+                                              <TableColumn fx:id="tableColumnVehicleTypeServiceHistoryTab" prefWidth="120.0" text="Vehicle type " />
+                                                <TableColumn fx:id="tableColumnWorkshopServiceHistoryTab" prefWidth="120.0" text="Workshop" />
+                                                <TableColumn fx:id="tableColumnServiceTypeServiceHistoryTab" prefWidth="125.0" text="Service type" />
+                                                <TableColumn fx:id="tableColumnServiceHistoryDescription" prefWidth="130.0" text="Description" />
+                                                <TableColumn fx:id="tableColumnLastServiceDateServiceHistoryTab" prefWidth="120.0" text="Last Service Date" />
+                                                <TableColumn fx:id="tableColumnDateServiceHistoryTab" prefWidth="120.0" text="Date" />
+                                                <TableColumn fx:id="tableColumnServiceCostServiceHistoryTab" prefWidth="120.0" text="Service Cost" />
+                                                <TableColumn fx:id="tableColumnPartTypeServiceHistoryTab" prefWidth="120.0" text="Part Type" />
+                                                <TableColumn fx:id="tableColumnPartCostServiceHistoryTab" prefWidth="120.0" text="Part Cost" />
+                                                <TableColumn fx:id="tableColumnReplacedPartsServiceHistoryTab" prefWidth="140.0" text="Replaced Parts" />
+                                            </columns>
+                                          </TableView>
+                                       </children>
+                                    </AnchorPane>
+                                </content>
+                              </ScrollPane>
+                           </children>
+                        </AnchorPane>
+                        <TextField fx:id="textFieldEnterVinServiceHistory" layoutX="64.0" layoutY="508.0" promptText="Enter vin" />
+                        <Button fx:id="buttonViewServiceHistory" layoutX="677.0" layoutY="508.0" mnemonicParsing="false" onAction="#handleButtonViewServiceHistoryAction" prefHeight="26.0" prefWidth="112.0" text="View" />
+                     </children></AnchorPane>
+              </content>
+            </Tab>
+            <Tab fx:id="tabCalculations" text="Calculations ">
+              <content>
+                <AnchorPane fx:id="anchorPaneCalculations" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="buttonCalculate" layoutX="155.0" layoutY="233.0" mnemonicParsing="false" onAction="#handleButtonCalculateAction" prefHeight="32.0" prefWidth="178.0" text="Calculate" />
+                        <TextField fx:id="textFieldEnterVinCalculationsTab" layoutX="149.0" layoutY="120.0" prefHeight="26.0" prefWidth="189.0" promptText="Enter vin" />
+                        <ChoiceBox fx:id="choiceBoxSelectCalculations" layoutX="149.0" layoutY="67.0" prefHeight="26.0" prefWidth="190.0" />
+                        <Label fx:id="labelSelectCalculations" layoutX="22.0" layoutY="71.0" text="Select Calculations">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="labelVinCalculationsTab" layoutX="78.0" layoutY="124.0" text="Vin" />
+                        <Label fx:id="labelWorkshopCalculationsTab" layoutX="60.0" layoutY="177.0" text="Workshop" />
+                        <ChoiceBox fx:id="choiceBoxWorkshopCalculationsTab" layoutX="149.0" layoutY="173.0" prefHeight="26.0" prefWidth="187.0" />
+                        <TextArea fx:id="textAreaCalculations" editable="false" layoutX="365.0" layoutY="13.0" prefHeight="544.0" prefWidth="426.0" wrapText="true" />
+                     </children></AnchorPane>
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</StackPane>
