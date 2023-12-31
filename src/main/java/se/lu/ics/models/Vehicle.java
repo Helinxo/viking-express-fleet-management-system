@@ -3,155 +3,150 @@ package se.lu.ics.models;
 import java.time.LocalDate;
 import java.util.UUID;
 
-
-public class Vehicle{
+public class Vehicle {
     private String vehicleId;
-    private String model;
-    private String make;
     private String brand;
+    private String model;
     private int year;
-    private double cargoCapacity;
+    private double maxCargoCapacity; // Maximum cargo capacity
+    private double currentCargo; // Current cargo load
     private int currentMileage;
     private LocalDate lastServiceDate;
     private String currentLocation;
     private MaintenanceSchedule maintenanceSchedule;
     private int lastServiceDistance;
 
+    public Vehicle() {
+    }
 
-    public Vehicle(String make, String model, String brand, int year, String currentLocation, int currentMileage, LocalDate lastServiceDate, double cargoCapacity, int lastServiceDistance) {
+    public Vehicle(String model, String brand, int year, String currentLocation, int currentMileage, LocalDate lastServiceDate, double maxCargoCapacity, double currentCargo, int lastServiceDistance) {
         this.vehicleId = generateVehicleId();
-        this.make = make;
         this.model = model;
         this.brand = brand;
         this.year = year;
         this.currentMileage = currentMileage;
-        this.lastServiceDate = lastServiceDate; // Make sure this is provided
+        this.lastServiceDate = lastServiceDate;
         this.currentLocation = currentLocation;
-        this.cargoCapacity = cargoCapacity;
-        this.maintenanceSchedule = new MaintenanceSchedule(lastServiceDistance, lastServiceDate); // Correct order of parameters
+        this.maxCargoCapacity = maxCargoCapacity;
+        this.currentCargo = currentCargo;
+        this.lastServiceDistance = lastServiceDistance;
+
+        // Initialize MaintenanceSchedule using its default constructor
+        this.maintenanceSchedule = new MaintenanceSchedule();
+
+        // Set last service details using setter methods
+        this.maintenanceSchedule.setLastServiceDistance(lastServiceDistance);
+        this.maintenanceSchedule.setLastServiceDate(lastServiceDate);
+
+        // Workshop can be set later using maintenanceSchedule.setMaintenanceWorkshop(workshop)
     }
+
+
     private String generateVehicleId() {
         UUID uuid = UUID.randomUUID();
         String randomUUIDString = uuid.toString().toUpperCase().replaceAll("-", "");
         return randomUUIDString.substring(0, 6);
     }
 
-// Getters and Setters
+    // Getters and Setters
 
-public int getLastServiceDistance() {
-    return lastServiceDistance;
+    public int getLastServiceDistance() {
+        return lastServiceDistance;
+    }
+    
+    public void setLastServiceDistance(int lastServiceDistance) {
+        this.lastServiceDistance = lastServiceDistance;
+    }
+    
+    public MaintenanceSchedule getMaintenanceSchedule() {
+        return maintenanceSchedule;
+    }
+    
+    public void setMaintenanceSchedule(MaintenanceSchedule maintenanceSchedule) {
+        this.maintenanceSchedule = maintenanceSchedule;
+    }
+    
+    public double getMaxCargoCapacity() {
+        return maxCargoCapacity;
+    }
+
+    public void setMaxCargoCapacity(double maxCargoCapacity) {
+        this.maxCargoCapacity = maxCargoCapacity;
+    }
+
+    public double getCurrentCargo() {
+        return currentCargo;
+    }
+
+    public void setCurrentCargo(double currentCargo) {
+        if (currentCargo <= this.maxCargoCapacity) {
+            this.currentCargo = currentCargo;
+        } else {
+            System.out.println("Current cargo exceeds maximum capacity, setting to maximum capacity.");
+            this.currentCargo = this.maxCargoCapacity;
+        }
+    }
+
+    public String getVehicleId() {
+        return vehicleId;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public int getCurrentMileage() {
+        return currentMileage;
+    }
+
+    public LocalDate getLastServiceDate() {
+        return lastServiceDate;
+    }
+
+    public String getCurrentLocation() {
+        return currentLocation;
+    }
+
+    public void setCurrentMileage(int currentMileage) {
+        this.currentMileage = currentMileage;
+    }
+
+    public void setLastServiceDate(LocalDate lastServiceDate) {
+        this.lastServiceDate = lastServiceDate;
+    }
+
+    public void setCurrentLocation(String currentLocation) {
+        this.currentLocation = currentLocation;
+    }
+
+    protected String getVehicleType() {
+        return "Vehicle"; // Default type
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s{\n" +
+                "\tvehicleId='%s',\n" +
+                "\tbrand='%s',\n" +
+                "\tmodel='%s',\n" +
+                "\tyear='%s',\n" +
+                "\tcurrentMileage='%s Km',\n" +
+                "\tlastServiceDate='%s',\n" +
+                "\tcurrentLocation='%s',\n" +
+                "\tmaxCargoCapacity='%s Kg',\n" +
+                "\tcurrentCargo='%s Kg'\n" +
+                '}', getVehicleType(), vehicleId, brand, model, year, currentMileage, lastServiceDate, currentLocation, maxCargoCapacity, currentCargo);
+    }
+
+    
+
+    
 }
-
-public void setLastServiceDistance(int lastServiceDistance) {
-    this.lastServiceDistance = lastServiceDistance;
-}
-
-public MaintenanceSchedule getMaintenanceSchedule() {
-    return maintenanceSchedule;
-}
-
-public void setMaintenanceSchedule(MaintenanceSchedule maintenanceSchedule) {
-    this.maintenanceSchedule = maintenanceSchedule;
-}
-
-
-
-public String getCurrentLocation() {
-    return currentLocation;
-}
-
-public void setCurrentLocation(String currentLocation) {
-    this.currentLocation = currentLocation;
-}
-
-
-
-public String getVehicleId() {
-    return vehicleId;
-}
-
-public void setVehicleId(String vehicleId) {
-    this.vehicleId = vehicleId;
-}
-
-
-public String getMake() {
-    return make;
-}
-
-public void setMake(String make) {
-    this.make = make;
-}
-
-public String getModel() {
-    return model;
-}
-
-public void setModel(String model) {
-    this.model = model;
-}
-
-public String getBrand() {
-    return brand;
-}
-
-public void setBrand(String brand) {
-    this.brand = brand;
-}
-
-public int getYear() {
-    return year;
-}
-
-public void setYear(int year) {
-    this.year = year;
-}
-
-
-
-public int getCurrentMileage() {
-    return currentMileage;
-}
-
-public void setCurrentMileage(int currentMileage) {
-    this.currentMileage = currentMileage;
-}
-
-public LocalDate getLastServiceDate() {
-    return lastServiceDate;
-}
-
-public void setLastServiceDate(LocalDate lastServiceDate) {
-    this.lastServiceDate = lastServiceDate;
-}
-
-public double getCargoCapacity() {
-    return cargoCapacity;
-}
-
-public void setCargoCapacity(double cargoCapacity) {
-    this.cargoCapacity = cargoCapacity;
-}
-
-@Override
-public String toString() {
-    return String.format("Vehicle{\n" +
-            "\tvehicleId='%s',\n" +
-            "\tmake='%s',\n" +
-            "\tmodel='%s',\n" +
-            "\tbrand='%s',\n" +
-            "\tyear='%s',\n" +
-            "\tcurrentMilage='%s Km',\n" +
-            "\tlastServiceDate='%s',\n" +
-            "\tcurrentLocation='%s',\n" +
-            "\tcargoCapacity='%s Kg'\n" +
-            '}',
-            vehicleId, make, model, brand, year,currentMileage, lastServiceDate, currentLocation, cargoCapacity);
-}
-}
-
-
-
-
-
-
