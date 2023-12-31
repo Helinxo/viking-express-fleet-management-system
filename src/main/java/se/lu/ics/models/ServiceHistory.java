@@ -36,6 +36,8 @@ public class ServiceHistory {
             System.out.println(service);
         }
     }
+    
+   
 
     public double calculateTotalCost() {
         double totalCost = 0;
@@ -62,6 +64,8 @@ public class ServiceHistory {
         }
         return count;
     }
+
+    
 
 
     // Getters and setters

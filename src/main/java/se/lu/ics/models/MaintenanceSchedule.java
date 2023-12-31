@@ -4,7 +4,7 @@ import java.time.LocalDate;
 public class MaintenanceSchedule {
 
     private ServiceHistory serviceHistory;
-    // Add a property to store the workshop responsible for maintenanc private WorkShop maintenanceWorkshop;e
+    private WorkShop maintenanceWorkshop; // Property to store the workshop responsible for maintenance
 
     private static final int REGULAR_SERVICE_DISTANCE_THRESHOLD = 30000; // Threshold in kilometers
     private static final int REGULAR_SERVICE_TIME_THRESHOLD = 3; // Threshold in months
@@ -12,33 +12,46 @@ public class MaintenanceSchedule {
     private int lastServiceDistance;
     private LocalDate lastServiceDate;
 
-    public MaintenanceSchedule(int lastServiceDistance, LocalDate lastServiceDate) {
-        this.lastServiceDistance = lastServiceDistance;
-        this.lastServiceDate = lastServiceDate;
-    
+    // Default constructor
+    public MaintenanceSchedule() {
+        this.lastServiceDate = LocalDate.now();
     }
 
-    public MaintenanceSchedule(ServiceHistory serviceHistory) {
+    // Constructor with ServiceHistory and WorkShop
+    public MaintenanceSchedule(ServiceHistory serviceHistory, WorkShop maintenanceWorkshop) {
         this.serviceHistory = serviceHistory;
+        this.maintenanceWorkshop = maintenanceWorkshop;
         this.lastServiceDate = LocalDate.now(); 
     }
 
-    public void performService(Service.ServiceType serviceType, Vehicle vehicle, WorkShop workshop) {
-        // Create a new Service object with the necessary details
-        Service service = createService(serviceType, vehicle, workshop);
-        
-        // Add this service to the service history
-        serviceHistory.addService(service);
+    // Constructor with last service details and WorkShop
+    public MaintenanceSchedule(int lastServiceDistance, LocalDate lastServiceDate, WorkShop maintenanceWorkshop) {
+        this.lastServiceDistance = lastServiceDistance;
+        this.lastServiceDate = lastServiceDate;
+        this.maintenanceWorkshop = maintenanceWorkshop;
     }
 
+    // Method to perform service
+    public void performService(Service.ServiceType serviceType, Vehicle vehicle) {
+        // Create a new Service object with the necessary details
+        Service service = createService(serviceType, vehicle, this.maintenanceWorkshop);
+        
+        // Add this service to the service history
+        if (serviceHistory != null) {
+            serviceHistory.addService(service);
+        }
+    }
+
+    // Helper method to create a Service object
     private Service createService(Service.ServiceType serviceType, Vehicle vehicle, WorkShop workshop) {
         Service service = new Service();
         service.setServiceType(serviceType);
         service.setWorkShop(workshop);
-        // Set other service properties (description, mileage, date, partType, partCost, etc.) as needed
+        // Set other service properties as needed
         return service;
     }
 
+    // Check if regular service is needed
     public boolean needsRegularService(int currentDistance) {
         if (currentDistance < 0) {
             throw new IllegalArgumentException("Current distance cannot be negative.");
@@ -48,28 +61,30 @@ public class MaintenanceSchedule {
             currentDate.isAfter(lastServiceDate.plusMonths(REGULAR_SERVICE_TIME_THRESHOLD));
     }
 
+    // Method to perform regular service
     public void performRegularService(int currentDistance) {
         if (needsRegularService(currentDistance)) {
             // Perform regular service tasks
-
-            // Update last service details
             this.lastServiceDistance = currentDistance;
             this.lastServiceDate = LocalDate.now();
         }
     }
 
-
-    //getters and setters
-
- 
-    
-
+    // Getters and Setters
     public ServiceHistory getServiceHistory() {
         return serviceHistory;
     }
 
     public void setServiceHistory(ServiceHistory serviceHistory) {
         this.serviceHistory = serviceHistory;
+    }
+
+    public WorkShop getMaintenanceWorkshop() {
+        return maintenanceWorkshop;
+    }
+
+    public void setMaintenanceWorkshop(WorkShop maintenanceWorkshop) {
+        this.maintenanceWorkshop = maintenanceWorkshop;
     }
 
     public int getLastServiceDistance() {
@@ -97,13 +112,12 @@ public class MaintenanceSchedule {
     }
 
     @Override
-
     public String toString() {
         return "MaintenanceSchedule{" +
                 "serviceHistory=" + serviceHistory +
+                ", maintenanceWorkshop=" + maintenanceWorkshop +
                 ", lastServiceDistance=" + lastServiceDistance +
                 ", lastServiceDate=" + lastServiceDate +
                 '}';
     }
-
 }

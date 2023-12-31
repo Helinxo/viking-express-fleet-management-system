@@ -28,20 +28,6 @@ import se.lu.ics.models.Service.ServiceType;
             // Create a new fleet manager
             FleetManager fleetManager = new FleetManager();
 
-            // Create a new maintenance schedule
-
-            MaintenanceSchedule maintenanceSchedule1 = new MaintenanceSchedule(10000, LocalDate.of(2019, 10, 10));
-
-            
-
-
-
-            
-
-            
-
-            
-
 
             // Create a new workshop
 
@@ -65,15 +51,26 @@ import se.lu.ics.models.Service.ServiceType;
             fleetManager.addVehicle(largeTruck);
             fleetManager.addVehicle(mediumTruck);
             fleetManager.addVehicle(van);
+
+
         
 
             // Create a new service history
 
-            ServiceHistory serviceHistoryLargeTruck = new ServiceHistory();
-            ServiceHistory serviceHistoryMediumTruck = new ServiceHistory();
-            ServiceHistory serviceHistoryVan = new ServiceHistory();
+            // Create service histories and maintenance schedules for each vehicle
+ServiceHistory serviceHistoryLargeTruck = new ServiceHistory();
+MaintenanceSchedule maintenanceScheduleLargeTruck = new MaintenanceSchedule(serviceHistoryLargeTruck, workShop1);
+largeTruck.setMaintenanceSchedule(maintenanceScheduleLargeTruck);
 
-            // add service history to vehicle
+ServiceHistory serviceHistoryMediumTruck = new ServiceHistory();
+MaintenanceSchedule maintenanceScheduleMediumTruck = new MaintenanceSchedule(serviceHistoryMediumTruck, workShop2);
+mediumTruck.setMaintenanceSchedule(maintenanceScheduleMediumTruck);
+
+ServiceHistory serviceHistoryVan = new ServiceHistory();
+MaintenanceSchedule maintenanceScheduleVan = new MaintenanceSchedule(serviceHistoryVan, workShop1);
+van.setMaintenanceSchedule(maintenanceScheduleVan);
+
+            
 
        
             
@@ -106,9 +103,25 @@ import se.lu.ics.models.Service.ServiceType;
             serviceHistoryMediumTruck.addService(service2);
             serviceHistoryVan.addService(service3);
 
-            // print vehicles
+            
 
-            fleetManager.printWorkshopsForVehicle(largeTruck);
+        // print parts
+
+
+        
+
+       
+   
+
+
+
+
+        
+
+
+          
+
+            
 
             
             

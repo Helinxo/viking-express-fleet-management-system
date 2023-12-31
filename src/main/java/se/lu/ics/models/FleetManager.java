@@ -74,11 +74,7 @@ public class FleetManager {
         vehicles.forEach(System.out::println);
     }
 
-    public void printVehiclesByModel(String model) {
-        vehicles.stream()
-                .filter(vehicle -> vehicle.getModel().equals(model))
-                .forEach(System.out::println);
-    }
+    
 
     public void updateVehicle(Vehicle oldVehicle, Vehicle newVehicle) {
         if (vehicles.contains(oldVehicle)) {
@@ -186,6 +182,22 @@ public void printServiceHistoryForWorkshop(WorkShop workshop) {
             System.out.println("No service history found for this vehicle.");
         }
     }
+
+    // print the service history for the entire fleet
+
+    public void printServiceHistoryForEntireFleet() {
+        for (Vehicle vehicle : vehicles) {
+            System.out.println("Service History for Vehicle ID: " + vehicle.getVehicleId());
+            ServiceHistory history = vehicleServiceHistories.get(vehicle);
+            if (history != null && !history.getServices().isEmpty()) {
+                history.printServiceHistory();
+            } else {
+                System.out.println("No service history available for this vehicle.");
+            }
+            System.out.println("---------------------------------------");
+        }
+    }
+    
 
     // Method to print the total cost for a specific vehicle
 

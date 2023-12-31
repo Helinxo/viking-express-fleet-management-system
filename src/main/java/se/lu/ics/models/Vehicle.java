@@ -16,6 +16,9 @@ public class Vehicle {
     private MaintenanceSchedule maintenanceSchedule;
     private int lastServiceDistance;
 
+    public Vehicle() {
+    }
+
     public Vehicle(String model, String brand, int year, String currentLocation, int currentMileage, LocalDate lastServiceDate, double maxCargoCapacity, double currentCargo, int lastServiceDistance) {
         this.vehicleId = generateVehicleId();
         this.model = model;
@@ -27,8 +30,17 @@ public class Vehicle {
         this.maxCargoCapacity = maxCargoCapacity;
         this.currentCargo = currentCargo;
         this.lastServiceDistance = lastServiceDistance;
-        this.maintenanceSchedule = new MaintenanceSchedule(lastServiceDistance, lastServiceDate);
+
+        // Initialize MaintenanceSchedule using its default constructor
+        this.maintenanceSchedule = new MaintenanceSchedule();
+
+        // Set last service details using setter methods
+        this.maintenanceSchedule.setLastServiceDistance(lastServiceDistance);
+        this.maintenanceSchedule.setLastServiceDate(lastServiceDate);
+
+        // Workshop can be set later using maintenanceSchedule.setMaintenanceWorkshop(workshop)
     }
+
 
     private String generateVehicleId() {
         UUID uuid = UUID.randomUUID();
