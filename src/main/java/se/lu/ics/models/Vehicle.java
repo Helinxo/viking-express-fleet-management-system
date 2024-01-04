@@ -8,8 +8,7 @@ public class Vehicle {
     private String brand;
     private String model;
     private int year;
-    private double maxCargoCapacity; // Maximum cargo capacity
-    private double currentCargo; // Current cargo load
+    private double cargoCapacity; // Cargo capacity
     private int currentMileage;
     private LocalDate lastServiceDate;
     private String currentLocation;
@@ -19,7 +18,7 @@ public class Vehicle {
     public Vehicle() {
     }
 
-    public Vehicle(String model, String brand, int year, String currentLocation, int currentMileage, LocalDate lastServiceDate, double maxCargoCapacity, double currentCargo, int lastServiceDistance) {
+    public Vehicle(String model, String brand, int year, String currentLocation, int currentMileage, LocalDate lastServiceDate, double cargoCapacity, int lastServiceDistance) {
         this.vehicleId = generateVehicleId();
         this.model = model;
         this.brand = brand;
@@ -27,20 +26,14 @@ public class Vehicle {
         this.currentMileage = currentMileage;
         this.lastServiceDate = lastServiceDate;
         this.currentLocation = currentLocation;
-        this.maxCargoCapacity = maxCargoCapacity;
-        this.currentCargo = currentCargo;
+        this.cargoCapacity = cargoCapacity;
         this.lastServiceDistance = lastServiceDistance;
 
         // Initialize MaintenanceSchedule using its default constructor
         this.maintenanceSchedule = new MaintenanceSchedule();
-
-        // Set last service details using setter methods
         this.maintenanceSchedule.setLastServiceDistance(lastServiceDistance);
         this.maintenanceSchedule.setLastServiceDate(lastServiceDate);
-
-        // Workshop can be set later using maintenanceSchedule.setMaintenanceWorkshop(workshop)
     }
-
 
     private String generateVehicleId() {
         UUID uuid = UUID.randomUUID();
@@ -50,42 +43,54 @@ public class Vehicle {
 
     // Getters and Setters
 
-    public int getLastServiceDistance() {
-        return lastServiceDistance;
+    public double getCargoCapacity() {
+        return cargoCapacity;
     }
-    
-    public void setLastServiceDistance(int lastServiceDistance) {
-        this.lastServiceDistance = lastServiceDistance;
+
+    public void setCargoCapacity(double cargoCapacity) {
+        this.cargoCapacity = cargoCapacity;
     }
+
+    public int getCurrentMileage() {
+        return currentMileage;
+    }
+
+    public void setCurrentMileage(int currentMileage) {
+        this.currentMileage = currentMileage;
+        this.maintenanceSchedule.performRegularService(currentMileage);
+    }
+
+    public LocalDate getLastServiceDate() {
+        return lastServiceDate;
+    }
+
     
+    public String getCurrentLocation() {
+        return currentLocation;
+    }
+
+    public void setCurrentLocation(String currentLocation) {
+        this.currentLocation = currentLocation;
+
+    }
+
     public MaintenanceSchedule getMaintenanceSchedule() {
         return maintenanceSchedule;
     }
-    
+
     public void setMaintenanceSchedule(MaintenanceSchedule maintenanceSchedule) {
         this.maintenanceSchedule = maintenanceSchedule;
     }
-    
-    public double getMaxCargoCapacity() {
-        return maxCargoCapacity;
+
+    public int getLastServiceDistance() {
+        return lastServiceDistance;
     }
 
-    public void setMaxCargoCapacity(double maxCargoCapacity) {
-        this.maxCargoCapacity = maxCargoCapacity;
+    public void setLastServiceDistance(int lastServiceDistance) {
+        this.lastServiceDistance = lastServiceDistance;
+        this.maintenanceSchedule.performRegularService(lastServiceDistance);
     }
 
-    public double getCurrentCargo() {
-        return currentCargo;
-    }
-
-    public void setCurrentCargo(double currentCargo) {
-        if (currentCargo <= this.maxCargoCapacity) {
-            this.currentCargo = currentCargo;
-        } else {
-            System.out.println("Current cargo exceeds maximum capacity, setting to maximum capacity.");
-            this.currentCargo = this.maxCargoCapacity;
-        }
-    }
 
     public String getVehicleId() {
         return vehicleId;
@@ -102,51 +107,37 @@ public class Vehicle {
     public int getYear() {
         return year;
     }
-
-    public int getCurrentMileage() {
-        return currentMileage;
+    public ServiceHistory getServiceHistory() {
+        return this.maintenanceSchedule.getServiceHistory();
     }
 
-    public LocalDate getLastServiceDate() {
-        return lastServiceDate;
+    public void setServiceHistory(ServiceHistory serviceHistory) {
+        this.maintenanceSchedule.setServiceHistory(serviceHistory);
     }
 
-    public String getCurrentLocation() {
-        return currentLocation;
+    public WorkShop getMaintenanceWorkshop() {
+        return this.maintenanceSchedule.getMaintenanceWorkshop();
     }
 
-    public void setCurrentMileage(int currentMileage) {
-        this.currentMileage = currentMileage;
+    public void setMaintenanceWorkshop(WorkShop maintenanceWorkshop) {
+        this.maintenanceSchedule.setMaintenanceWorkshop(maintenanceWorkshop);
     }
 
-    public void setLastServiceDate(LocalDate lastServiceDate) {
-        this.lastServiceDate = lastServiceDate;
+    public static int getRegularServiceDistanceThreshold() {
+        return MaintenanceSchedule.getRegularServiceDistanceThreshold();
     }
 
-    public void setCurrentLocation(String currentLocation) {
-        this.currentLocation = currentLocation;
+    public static int getRegularServiceTimeThreshold() {
+        return MaintenanceSchedule.getRegularServiceTimeThreshold();
     }
 
-    protected String getVehicleType() {
+
+
+    public String getVehicleType() {
         return "Vehicle"; // Default type
     }
-
-    @Override
-    public String toString() {
-        return String.format("%s{\n" +
-                "\tvehicleId='%s',\n" +
-                "\tbrand='%s',\n" +
-                "\tmodel='%s',\n" +
-                "\tyear='%s',\n" +
-                "\tcurrentMileage='%s Km',\n" +
-                "\tlastServiceDate='%s',\n" +
-                "\tcurrentLocation='%s',\n" +
-                "\tmaxCargoCapacity='%s Kg',\n" +
-                "\tcurrentCargo='%s Kg'\n" +
-                '}', getVehicleType(), vehicleId, brand, model, year, currentMileage, lastServiceDate, currentLocation, maxCargoCapacity, currentCargo);
-    }
-
+    
     
 
-    
+   
 }

@@ -1,7 +1,5 @@
 package se.lu.ics.models;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
