@@ -19,8 +19,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane fx:id="stackPaneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="596.0" prefWidth="803.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-fx:controller = "se.lu.ics.controllers.MainViewController"> 
+<StackPane fx:id="stackPaneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="668.0" prefWidth="803.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.lu.ics.controllers.MainViewController"> 
    <children>
       <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
@@ -28,60 +27,63 @@ fx:controller = "se.lu.ics.controllers.MainViewController">
             <content>
               <AnchorPane fx:id="anchorPaneHomeTab" minHeight="0.0" minWidth="0.0" prefHeight="412.0" prefWidth="646.0" style="-fx-background-color: black;">
                      <children>
-                        <ImageView fx:id="imageViewVikingExpress" fitHeight="282.0" fitWidth="803.0" pickOnBounds="true" preserveRatio="true">
+                        <TextArea fx:id="textAreaHomeTab" editable="false" layoutY="276.0" prefHeight="290.0" prefWidth="803.0" style="-fx-control-inner-background: black; -fx-text-fill: white;" text="Established in 1990, Viking Express is a premier logistics leader in Sweden. Founded by Gunnar Storm  and Bryce Fenwick, our company blends local expertise with international logistics proficiency. Known for  reliability and customer-centricity, we prioritize building lasting partnerships. Viking Express operates with a streamlined organizational hierarchy, ensuring efficient operations and effective management. Our  commitment to trust, reliability, and quality service is reflected in our uncomplicated structure.&#10;&#10;Explore Viking Express for logistics excellence. Your success is our priority.&#10;&#10;Key Achievements:&#10;- Rapid regional expansion by 1992.&#10;- Diversified fleet and introduced digital routing solutions in the late '90s and early 2000s.&#10;- Committed to sustainability with eco-friendly fleet upgrades and operational policies from 2005 to 2010.&#10;- Nationwide presence achieved in 2013, followed by significant client base expansion through partnerships in 2016.&#10;&#10;Recent Developments:&#10;- Implemented manual data analysis for operations in 2019.&#10;- Expanded storage facilities in key urban centers in 2022 to meet growing demand." wrapText="true" />
+                        <ImageView fx:id="imageViewVikingExpress" fitHeight="272.0" fitWidth="803.0" layoutX="-1.0" layoutY="3.0">
                            <image>
-                              <Image url="@../../../../../../../Desktop/VikingExpress.png" />
+                              <Image url="@../images/VikingExpress.png" />
                            </image>
                         </ImageView>
-                        <TextArea fx:id="textAreaHomeTab" editable="false" layoutY="276.0" prefHeight="290.0" prefWidth="803.0" style="-fx-control-inner-background: black; -fx-text-fill: white;" text="Established in 1990, Viking Express is a premier logistics leader in Sweden. Founded by Gunnar Storm  and Bryce Fenwick, our company blends local expertise with international logistics proficiency. Known for  reliability and customer-centricity, we prioritize building lasting partnerships. Viking Express operates with a streamlined organizational hierarchy, ensuring efficient operations and effective management. Our  commitment to trust, reliability, and quality service is reflected in our uncomplicated structure.&#10;&#10;Explore Viking Express for logistics excellence. Your success is our priority.&#10;&#10;Key Achievements:&#10;- Rapid regional expansion by 1992.&#10;- Diversified fleet and introduced digital routing solutions in the late '90s and early 2000s.&#10;- Committed to sustainability with eco-friendly fleet upgrades and operational policies from 2005 to 2010.&#10;- Nationwide presence achieved in 2013, followed by significant client base expansion through partnerships in 2016.&#10;&#10;Recent Developments:&#10;- Implemented manual data analysis for operations in 2019.&#10;- Expanded storage facilities in key urban centers in 2022 to meet growing demand." wrapText="true" />
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
           <Tab fx:id="tabVehicle" text="Vehicle ">
             <content>
-              <AnchorPane fx:id="anchorPaneVehicleTab" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <AnchorPane fx:id="anchorPaneVehicleTab" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="600.0">
                      <children>
+                        <Label fx:id="labelCurrentLocation" layoutX="27.0" layoutY="310.0" text="Current location" />
                         <Label fx:id="labelRegisterNewVehicle" layoutX="100.0" layoutY="35.0" text="Register a new vehicle : " />
                         <Label fx:id="labelVehicleType" layoutX="48.0" layoutY="94.0" text="Vehicle type " />
-                        <Label fx:id="labelBrand" layoutX="55.0" layoutY="150.0" text="Brand" />
-                        <Label fx:id="labelModel" layoutX="53.0" layoutY="195.0" text="Model" />
-                        <Label fx:id="labelYear" layoutX="58.0" layoutY="242.0" text="Year" />
-                        <Label fx:id="labelCargoCapacity" layoutX="30.0" layoutY="290.0" text="Cargo capacity " />
-                        <Label fx:id="labelUpdateVehicleInformation" layoutX="40.0" layoutY="402.0" text="Update vehicle information : " />
-                        <Label fx:id="labelNewVehicleInformation" layoutX="36.0" layoutY="482.0" text="2. Fill in the fields with new information" />
-                        <Button fx:id="buttonGenerateVin" layoutX="37.0" layoutY="347.0" mnemonicParsing="false" onAction="#handleButtonGenerateVinAction" prefHeight="32.0" prefWidth="126.0" text="Generate vin " />
-                        <Button fx:id="buttonAddVehicle" layoutX="181.0" layoutY="347.0" mnemonicParsing="false" onAction="#handleButtonAddVehicleAction" prefHeight="32.0" prefWidth="126.0" text="Add vehicle " />
-                        <Button fx:id="buttonSaveChanges" layoutX="58.0" layoutY="511.0" mnemonicParsing="false" onAction="#handleButtonSaveChangesAction" prefHeight="34.0" prefWidth="163.0" text="Save changes " />
-                        <TextField fx:id="textFieldEnterVinVehicle" layoutX="50.0" layoutY="438.0" promptText="Enter vin" />
-                        <Text layoutX="36.0" layoutY="455.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1." />
-                        <Text layoutX="40.0" layoutY="533.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3." />
+                        <Label fx:id="labelBrand" layoutX="55.0" layoutY="142.0" text="Brand" />
+                        <Label fx:id="labelModel" layoutX="54.0" layoutY="187.0" text="Model" />
+                        <Label fx:id="labelYear" layoutX="59.0" layoutY="229.0" text="Year" />
+                        <Label fx:id="labelCargoCapacity" layoutX="29.0" layoutY="269.0" text="Cargo capacity " />
+                        <Label fx:id="labelUpdateVehicleInformation" layoutX="41.0" layoutY="436.0" text="Update vehicle information : " />
+                        <Label fx:id="labelNewVehicleInformation" layoutX="36.0" layoutY="512.0" text="2. Fill in the fields with new information" />
+                        <Button fx:id="buttonShowVin" layoutX="37.0" layoutY="363.0" mnemonicParsing="false" onAction="#handleButtonShowVinAction" prefHeight="32.0" prefWidth="126.0" text="Generate vin " />
+                        <Button fx:id="buttonAddVehicle" layoutX="181.0" layoutY="363.0" mnemonicParsing="false" onAction="#handleButtonAddVehicleAction" prefHeight="32.0" prefWidth="126.0" text="Add vehicle " />
+                        <Button fx:id="buttonSaveChanges" layoutX="58.0" layoutY="546.0" mnemonicParsing="false" onAction="#handleButtonSaveChangesAction" prefHeight="34.0" prefWidth="163.0" text="Save changes " />
+                        <TextField fx:id="textFieldEnterVinVehicle" layoutX="49.0" layoutY="466.0" promptText="Enter vin" />
+                        <Text layoutX="33.0" layoutY="484.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1." />
+                        <Text layoutX="35.0" layoutY="568.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3." />
                         <ChoiceBox fx:id="choiceBoxVehicleType" layoutX="126.0" layoutY="90.0" prefWidth="150.0" />
-                        <TextField fx:id="textFieldBrand" layoutX="126.0" layoutY="146.0" />
-                        <TextField fx:id="textFieldModel" layoutX="129.0" layoutY="191.0" />
-                        <TextField fx:id="textFieldYear" layoutX="129.0" layoutY="238.0" />
-                        <TextField fx:id="textFieldCargoCapacity" layoutX="129.0" layoutY="286.0" />
-                        <Button fx:id="buttonDeleteVehicle" layoutX="375.0" layoutY="495.0" mnemonicParsing="false" onAction="#handleButtonDeleteVehicleAction" prefHeight="32.0" prefWidth="126.0" text="Delete vehicle " />
-                        <ScrollPane fx:id="scrollPaneVehicle" layoutX="340.0" layoutY="21.0" prefHeight="458.0" prefWidth="463.0">
-                          <content>
-                            <AnchorPane fx:id="anchorPaneVehicleTableView" minHeight="0.0" minWidth="0.0" prefHeight="467.0" prefWidth="558.0">
+                        <TextField fx:id="textFieldBrand" layoutX="121.0" layoutY="137.0" promptText="Brand" />
+                        <TextField fx:id="textFieldModel" layoutX="121.0" layoutY="182.0" promptText="Model" />
+                        <TextField fx:id="textFieldYear" layoutX="121.0" layoutY="224.0" promptText="Year" />
+                        <TextField fx:id="textFieldCargoCapacity" layoutX="121.0" layoutY="264.0" promptText="Cargo capacity" />
+                        <TextField fx:id="textfieldCurrentLocation" layoutX="121.0" layoutY="306.0" promptText="Current location" />
+                        <Button fx:id="buttonDeleteVehicle" layoutX="371.0" layoutY="537.0" mnemonicParsing="false" onAction="#handleButtonDeleteVehicleAction" prefHeight="32.0" prefWidth="126.0" text="Delete vehicle " />
+                        <ScrollPane fx:id="scrollPaneVehicle" layoutX="316.0" layoutY="6.0" prefHeight="519.0" prefWidth="487.0">
+                           <content>
+                            <AnchorPane fx:id="anchorPaneVehicleTableView" minHeight="0.0" minWidth="0.0" prefHeight="328.0" prefWidth="638.0">
                                  <children>
-                                    <TableView fx:id="tableViewVehicle" prefHeight="458.0" prefWidth="546.0">
+                                    <TableView fx:id="tableViewVehicle" prefHeight="517.0" prefWidth="649.0">
                                       <columns>
-                                        <TableColumn fx:id="tableColumnVehicleVin" prefWidth="83.20000916719437" text="Vin" />
-                                          <TableColumn fx:id="tableColumnVehicleType" prefWidth="91.20008850097656" text="Type" />
-                                          <TableColumn fx:id="tableColumnVehicleYear" prefWidth="100.0" text="Year" />
-                                          <TableColumn fx:id="tableColumnVehicleBrand" prefWidth="75.0" text="Brand" />
-                                        <TableColumn fx:id="tableColumnVehicleModel" prefWidth="92.0" text="Model" />
-                                          <TableColumn fx:id="tableColumnVehicleCargoCapacity" prefWidth="102.39999999999998" text="Cargo Capacity" />
+                                        <TableColumn fx:id="tableColumnVehicleVin" editable="false" prefWidth="83.20000916719437" text="Vin" />
+                                          <TableColumn fx:id="tableColumnVehicleType" editable="false" prefWidth="91.20008850097656" text="Type" />
+                                          <TableColumn fx:id="tableColumnVehicleYear" editable="false" prefWidth="100.0" text="Year" />
+                                          <TableColumn fx:id="tableColumnVehicleBrand" editable="false" prefWidth="75.0" text="Brand" />
+                                        <TableColumn fx:id="tableColumnVehicleModel" editable="false" prefWidth="92.0" text="Model" />
+                                          <TableColumn fx:id="tableColumnVehicleCargoCapacity" editable="false" prefWidth="102.39999999999998" text="Cargo Capacity" />
+                                          <TableColumn fx:id="tableColumnVehicleCurrentLocation" editable="false" prefWidth="102.399999999998" text="Current Location" />
                                       </columns>
                                     </TableView>
                                  </children>
                               </AnchorPane>
-                          </content>
+                           </content>
                         </ScrollPane>
-                        <Button fx:id="buttonCountVehicles" layoutX="519.0" layoutY="496.0" mnemonicParsing="false" onAction="#handleButtonCountVehiclesAction" prefHeight="30.0" prefWidth="125.0" text="Count vehicles" />
-                        <Button fx:id="buttonViewVehicles" layoutX="661.0" layoutY="498.0" mnemonicParsing="false" onAction="#handleButtonViewVehiclesAction" prefHeight="26.0" prefWidth="115.0" text="View vehicles" />
+                        <Button fx:id="buttonCountVehicles" layoutX="520.0" layoutY="538.0" mnemonicParsing="false" onAction="#handleButtonCountVehiclesAction" prefHeight="30.0" prefWidth="125.0" text="Count vehicles" />
+                        <Button fx:id="buttonViewVehicles" layoutX="661.0" layoutY="540.0" mnemonicParsing="false" onAction="#handleButtonViewVehiclesAction" prefHeight="26.0" prefWidth="115.0" text="View vehicles" />
                      </children></AnchorPane>
             </content>
           </Tab>

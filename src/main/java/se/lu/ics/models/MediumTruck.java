@@ -6,26 +6,23 @@ public class MediumTruck extends Vehicle {
 
     private static final double MAX_CARGO_CAPACITY = 5000; // Maximum cargo capacity for MediumTruck
 
-    public MediumTruck(String model, String brand, int year, String currentLocation, int currentMileage, LocalDate lastServiceDate, double currentCargo, int lastServiceDistance) {
+    public MediumTruck(String model, String brand, int year, String currentLocation, int currentMileage, LocalDate lastServiceDate, int lastServiceDistance, double cargoCapacity) {
         // Call to the super constructor of Vehicle
-        super(model, brand, year, currentLocation, currentMileage, lastServiceDate, MAX_CARGO_CAPACITY, currentCargo, lastServiceDistance);
+        super(model, brand, year, currentLocation, currentMileage, lastServiceDate, MAX_CARGO_CAPACITY, lastServiceDistance);
     }
 
-    
     @Override
-    public void setCurrentCargo(double currentCargo) {
-        if (currentCargo <= MAX_CARGO_CAPACITY) {
-            super.setCurrentCargo(currentCargo);
+    public void setCargoCapacity(double cargoCapacity) {
+        if (cargoCapacity <= MAX_CARGO_CAPACITY) {
+            super.setCargoCapacity(cargoCapacity);
         } else {
-            System.out.println("Current cargo exceeds maximum capacity for Medium Truck, setting to maximum capacity.");
-            super.setCurrentCargo(MAX_CARGO_CAPACITY);
+            System.out.println("Cargo capacity exceeds maximum capacity for Medium Truck, setting to maximum capacity.");
+            super.setCargoCapacity(MAX_CARGO_CAPACITY);
         }
     }
 
     @Override
-    protected String getVehicleType() {
+    public String getVehicleType() {
         return "MediumTruck";
     }
-
 }
-
