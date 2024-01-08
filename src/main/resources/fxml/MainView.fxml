@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<StackPane fx:id="stackPaneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="668.0" prefWidth="803.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.lu.ics.controllers.MainViewController"> 
+   <children>
+      <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab fx:id="tabHome" text="Home">
+              <content>
+              <AnchorPane fx:id="anchorPaneHomeTab" minHeight="0.0" minWidth="0.0" prefHeight="412.0" prefWidth="646.0" style="-fx-background-color: black;">
+                     <children>
+                        <TextArea fx:id="textAreaHomeTab" editable="false" layoutY="276.0" prefHeight="290.0" prefWidth="803.0" style="-fx-control-inner-background: black; -fx-text-fill: white;" text="Established in 1990, Viking Express is a premier logistics leader in Sweden. Founded by Gunnar Storm  and Bryce Fenwick, our company blends local expertise with international logistics proficiency. Known for  reliability and customer-centricity, we prioritize building lasting partnerships. Viking Express operates with a streamlined organizational hierarchy, ensuring efficient operations and effective management. Our  commitment to trust, reliability, and quality service is reflected in our uncomplicated structure.&#10;&#10;Explore Viking Express for logistics excellence. Your success is our priority.&#10;&#10;Key Achievements:&#10;- Rapid regional expansion by 1992.&#10;- Diversified fleet and introduced digital routing solutions in the late '90s and early 2000s.&#10;- Committed to sustainability with eco-friendly fleet upgrades and operational policies from 2005 to 2010.&#10;- Nationwide presence achieved in 2013, followed by significant client base expansion through partnerships in 2016.&#10;&#10;Recent Developments:&#10;- Implemented manual data analysis for operations in 2019.&#10;- Expanded storage facilities in key urban centers in 2022 to meet growing demand." wrapText="true" />
+                        <ImageView fx:id="imageViewVikingExpress" fitHeight="272.0" fitWidth="803.0" layoutX="-1.0" layoutY="3.0">
+                           <image>
+                              <Image url="@../images/VikingExpress.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab fx:id="tabVehicle" text="Vehicle">
+    <content>
+        <fx:include fx:id="vehicleTab" source="VehicleTab.fxml"/>
+    </content>
+</Tab>
+          <Tab fx:id="tabWorkshop" text="Workshop">
+            <content>
+                <fx:include fx:id="workshopTab" source="WorkshopTab.fxml"/>
+            </content>
+          </Tab>
+          <Tab fx:id="tabMaintenanceSchedule" text="Maintenance Schedule">
+            <content>
+                <fx:include fx:id = "maintenanceScheduleTab" source="MaintenanceScheduleTab.fxml"/>
+            </content>
+          </Tab>
+          <Tab fx:id="tabServiceHistory" text="Service History">
+            <content>
+                <fx:include fx:id = "serviceHistoryTab" source="ServiceHistoryTab.fxml"/>
+            </content>
+          </Tab>
+          <Tab fx:id="tabCalculation" text="Calculation">
+            <content>
+                <fx:include fx:id = "calculationTab" source="CalculationTab.fxml"/>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</StackPane>

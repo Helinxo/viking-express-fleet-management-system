@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+
+<AnchorPane fx:id="anchorPaneMaintenanceScheduleTab" fx:controller="se.lu.ics.controllers.MaintenanceScheduleTabController" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+                        <Label fx:id="labelVinMaintenanceSchedule" layoutX="45.0" layoutY="439.0" text="Vin" textFill="#121212">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="buttonConfirm" layoutX="617.0" layoutY="527.0" mnemonicParsing="false" onAction="#handleButtonConfirmAction" prefHeight="26.0" prefWidth="177.0" text="Confirm" />
+                        <ChoiceBox fx:id="choiceBoxPartTypes" layoutX="402.0" layoutY="505.0" prefWidth="150.0" />
+                        <ChoiceBox fx:id="choiceBoxServiceType" layoutX="402.0" layoutY="470.0" prefWidth="150.0" />
+                        <TextField fx:id="textFieldEnterVinMaintenanceSchedule" layoutX="134.0" layoutY="436.0" promptText="Enter vin" />
+                       <Button fx:id="buttonCheckMaintenance" layoutX="402.0" layoutY="436.0" prefWidth="150.0"  onAction="#handleButtonCheckMaintenanceAction" text="Check Maintenance" />
+                        <TextField fx:id="textFieldLastServiceDistance" layoutX="134.0" layoutY="470.0" />
+                        <TextField fx:id="textFieldLastServiceDate" layoutX="134.0" layoutY="505.0" />
+                        <ChoiceBox fx:id="choiceBoxWorkshop" layoutX="639.0" layoutY="436.0" prefWidth="150.0" />
+                        <Label fx:id="labelVehicleTypeMaintenanceScheduleTab" layoutX="313.0" layoutY="439.0" text="Vehicle Type">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Label>
+                        <DatePicker fx:id="datePickerDate" layoutX="617.0" layoutY="477.0" prefHeight="26.0" prefWidth="174.0" />
+                        <Label fx:id="labelWorkshop" layoutX="577.0" layoutY="440.0" text="Workshop" />
+                        <Label fx:id="labelServiceType" layoutX="316.0" layoutY="474.0" text="Service Type" />
+                        <Label fx:id="labelPartTypes" layoutX="321.0" layoutY="509.0" text="Part Types" />
+                        <Label fx:id="labelLastServiceDistance" layoutX="14.0" layoutY="474.0" text="Last Service Distance " />
+                        <Label fx:id="labelLastServiceDate" layoutX="13.0" layoutY="509.0" text="Last Service Date" />
+                        <Label fx:id="labelDate" layoutX="585.0" layoutY="481.0" text="Date" />
+                        <ScrollPane prefHeight="411.0" prefWidth="803.0">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="410.0" prefWidth="1015.0">
+                                 <children>
+                                    <TableView fx:id="tableViewMaintenanceScheduleTab" prefHeight="410.0" prefWidth="1015.0">
+                                      <columns>
+                                        <TableColumn fx:id="tableColumnVinMaintenanceScheduleTab" prefWidth="98.39998930692673" text="Vin " />
+                                        <TableColumn fx:id="tableColumnVehicleTypeMaintenanceScheduleTab" prefWidth="123.9999771118164" text="Vehicle Type " />
+                                          <TableColumn fx:id="tableColumnServiceTypeMaintenanceScheduleTab" prefWidth="118.39997863769531" text="Service Type" />
+                                          <TableColumn fx:id="tableColumnPartTypeMaintenanceScheduleTab" prefWidth="114.4000244140625" text="Part Type" />
+                                          <TableColumn fx:id="tableColumnWorkshopMaintenanceScheduleTab" prefWidth="133.60000610351562" text="Workshop" />
+                                          <TableColumn fx:id="tableColumnDateMaintenanceScheduleTab" prefWidth="117.59991455078125" text=" Date" />
+                                          <TableColumn fx:id="tableColumnLastServiceDistanceMaintenanceScheduleTab" prefWidth="149.5999755859375" text="Last Service Distance " />
+                                          <TableColumn fx:id="tableColumnLastServiceDateMaintenanceScheduleTab" prefWidth="139.20003662109377" text="Last Service Date" />
+                                      </columns>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </ScrollPane>
+                     </children>
+</AnchorPane>
+

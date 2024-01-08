@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+
+<AnchorPane fx:id="anchorPaneWorkshopTab" fx:controller="se.lu.ics.controllers.WorkshopTabController" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<children>
+    <TableView fx:id="tableViewWorkshop" layoutX="-1.0" prefHeight="402.0" prefWidth="803.0">
+        <columns>
+            <TableColumn fx:id="tableColumnWorkshopVin" prefWidth="100.79998779296875" text="Vin" />
+            <TableColumn fx:id="tableColumnWorkshopId" minWidth="4.79998779296875" prefWidth="147.19995880126953" text="Workshop Id" />
+            <TableColumn fx:id="tableColumnWorkshopType" prefWidth="148.0" text="Workshop Type" />
+            <TableColumn fx:id="tableColumnWorkshopName" prefWidth="191.19998168945312" text="Workshop Name" />
+            <TableColumn fx:id="tableColumnWorkshopAddress" prefWidth="214.39996337890625" text="Workshop Address" />
+        </columns>
+    </TableView>
+    <Button fx:id="buttonAddWorkshop" layoutX="624.0" layoutY="427.0" mnemonicParsing="false" onAction="#handleButtonAddWorkshopAction" prefHeight="26.0" prefWidth="114.0" text="Add workshop" />
+    <Button fx:id="buttonDeleteWorkshop" layoutX="624.0" layoutY="506.0" mnemonicParsing="false" onAction="#handleButtonDeleteWorkshopAction" prefHeight="26.0" prefWidth="114.0" text="Delete workshop" />
+    <Button fx:id="buttonUpdateWorkshop" layoutX="624.0" layoutY="467.0" mnemonicParsing="false" onAction="#handleButtonUpdateWorkshopAction" prefHeight="26.0" prefWidth="114.0" text="Update workshop" />
+    <Label fx:id="labelWorkshopName" layoutX="12.0" layoutY="511.0" prefHeight="26.0" prefWidth="94.0" text="Workshop Name " />
+    <Label fx:id="labelWorkshopAddress" layoutX="288.0" layoutY="428.0" text="Workshop Address " />
+    <Label fx:id="labelWorkshopType" layoutX="297.0" layoutY="481.0" text="Workshop Type " />
+    <TextField fx:id="textFieldWorkshopName" layoutX="106.0" layoutY="511.0" />
+    <TextField fx:id="textFieldWorkshopAddress" layoutX="400.0" layoutY="424.0" />
+    <RadioButton fx:id="radioButtonInternal" layoutX="409.0" layoutY="481.0" mnemonicParsing="false" text="Internal " />
+    <RadioButton fx:id="radioButtonExternal" layoutX="410.0" layoutY="515.0" mnemonicParsing="false" text="External" />
+    <Label fx:id="labelVinWorkshop" layoutX="47.0" layoutY="432.0" text="Vin" />
+    <TextField fx:id="textFieldEnterVinWorkshop" layoutX="106.0" layoutY="424.0" promptText="Enter vin" />
+    <Label fx:id="labelWorkshopId" layoutX="24.0" layoutY="472.0" text="Workshop Id" />
+    <TextField fx:id="textFieldWorkshopId" layoutX="106.0" layoutY="468.0" />
+</children>
+</AnchorPane>
