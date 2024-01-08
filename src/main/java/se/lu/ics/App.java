@@ -7,15 +7,6 @@ import se.lu.ics.controllers.MainViewController;
 import se.lu.ics.models.FleetManager;
 import javafx.scene.layout.StackPane;
 
-
-
-
-
-
-    
-    
-    
-    
     public class App extends Application {
         public static void main(String[] args) { launch();}
         @Override

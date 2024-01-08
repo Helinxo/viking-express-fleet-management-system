@@ -289,7 +289,7 @@ private void setUptableViewMaintenanceScheduleTab() {
         ServiceType serviceType = schedule.getServiceType();
         return new SimpleStringProperty(serviceType != null ? serviceType.name() : "N/A");
     });
-    // VIN and Vehicle Type (assuming Vehicle ID is used as VIN)
+
     tableColumnVinMaintenanceScheduleTab.setCellValueFactory(cellData -> {
         MaintenanceSchedule schedule = cellData.getValue();
         Vehicle vehicle = schedule.getVehicle();

@@ -263,7 +263,7 @@ public void handleButtonSaveChangesAction(ActionEvent event) {
         String brand = textFieldBrand.getText();
         int year = Integer.parseInt(textFieldYear.getText());
         String currentLocation = textfieldCurrentLocation.getText();
-        LocalDate lastServiceDate = LocalDate.now();  // Assuming this is correct
+        LocalDate lastServiceDate = LocalDate.now();
         double cargoCapacity = Double.parseDouble(textFieldCargoCapacity.getText());
 
         String vehicleType = choiceBoxVehicleType.getValue().toString();
