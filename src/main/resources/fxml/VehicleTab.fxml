@@ -28,7 +28,6 @@
                         <Label fx:id="labelCargoCapacity" layoutX="29.0" layoutY="269.0" text="Cargo capacity " />
                         <Label fx:id="labelUpdateVehicleInformation" layoutX="41.0" layoutY="436.0" text="Update vehicle information : " />
                         <Label fx:id="labelNewVehicleInformation" layoutX="36.0" layoutY="512.0" text="2. Fill in the fields with new information" />
-                        <Button fx:id="buttonShowVin" layoutX="37.0" layoutY="363.0" mnemonicParsing="false" onAction="#handleButtonShowVinAction" prefHeight="32.0" prefWidth="126.0" text="Generate vin " />
                         <Button fx:id="buttonAddVehicle" layoutX="181.0" layoutY="363.0" mnemonicParsing="false" onAction="#handleButtonAddVehicleAction" prefHeight="32.0" prefWidth="126.0" text="Add vehicle " />
                         <Button fx:id="buttonSaveChanges" layoutX="58.0" layoutY="546.0" mnemonicParsing="false" onAction="#handleButtonSaveChangesAction" prefHeight="34.0" prefWidth="163.0" text="Save changes " />
                         <TextField fx:id="textFieldEnterVinVehicle" layoutX="49.0" layoutY="466.0" promptText="Enter vin" />

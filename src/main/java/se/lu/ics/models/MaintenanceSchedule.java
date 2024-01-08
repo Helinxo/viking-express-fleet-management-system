@@ -175,7 +175,7 @@ public class MaintenanceSchedule {
 
 
     public LocalDate calculateNextServiceDueDate() {
-        // Assuming you want to use the current mileage of the vehicle
+
         int currentDistance = this.vehicle.getCurrentMileage();
     
         LocalDate nextDueDateBasedOnTime = lastServiceDate.plusMonths(REGULAR_SERVICE_TIME_THRESHOLD);

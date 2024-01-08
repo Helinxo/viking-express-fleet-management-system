@@ -160,8 +160,6 @@ public void handleButtonAddWorkshopAction(ActionEvent event) {
             return;
         }
 
-        vehicle.setAssignedWorkshop(newWorkshop); // Assign the workshop to the vehicle
-        newWorkshop.setAssignedVehicle(vehicle); // Assign the vehicle to the workshop
     }
 
     fleetManager.addWorkShop(newWorkshop);
