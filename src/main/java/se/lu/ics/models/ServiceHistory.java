@@ -5,12 +5,21 @@ import javafx.collections.ObservableList;
 
 public class ServiceHistory {
     private ObservableList<Service> services;
+    private Vehicle vehicle;
 
     public ServiceHistory() {
         this.services = FXCollections.observableArrayList();
     }
 
     // CRUD operations for services
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
+
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
+    }
+
     public void addService(Service service) {
         services.add(service);
     }

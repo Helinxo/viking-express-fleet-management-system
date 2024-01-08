@@ -10,6 +10,7 @@ public class WorkShop {
     private String address;
     private boolean isInternal;
     private ObservableList<Service> associatedServices;
+    private Vehicle assignedVehicle;
 
 
 
@@ -40,6 +41,15 @@ public WorkShop(String workshopId, String name, String address, boolean isIntern
 }
 
 // Getters and Setters
+
+public Vehicle getAssignedVehicle() {
+    return this.assignedVehicle;
+}
+
+// Method to set the assigned Vehicle
+public void setAssignedVehicle(Vehicle vehicle) {
+    this.assignedVehicle = vehicle;
+}
 
 public ObservableList<Service> getAssociatedServices() {
     return FXCollections.unmodifiableObservableList(associatedServices);

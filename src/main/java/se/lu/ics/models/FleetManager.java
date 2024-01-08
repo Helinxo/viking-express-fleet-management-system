@@ -1,7 +1,9 @@
 package se.lu.ics.models;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
@@ -15,6 +17,7 @@ public class FleetManager {
     private ObservableList<Vehicle> vehicles;
     private Map<Vehicle, ServiceHistory> vehicleServiceHistories;
     private ObservableList<WorkShop> workshops;
+    private Map<Vehicle, MaintenanceSchedule> maintenanceSchedules;
     
   
     
@@ -23,9 +26,11 @@ public class FleetManager {
         this.vehicles = FXCollections.observableArrayList();
         this.vehicleServiceHistories = new HashMap<>();
         this.workshops = FXCollections.observableArrayList();
+        this.maintenanceSchedules = new HashMap<>();
+       
     }
 
-
+  
 
     // CRUD operations for workshops
 
@@ -86,18 +91,34 @@ public class FleetManager {
 
     // CRUD operations for vehicles
 
-
     public void addVehicle(Vehicle vehicle) {
         this.vehicles.add(vehicle);
-        System.out.println("Debug: Vehicle added to FleetManager - " + vehicle);
+        
+        // Initialize ServiceHistory and MaintenanceSchedule for the new vehicle
+        ServiceHistory newServiceHistory = new ServiceHistory();
+        MaintenanceSchedule newMaintenanceSchedule = new MaintenanceSchedule(vehicle);
+    
+        // Assuming Vehicle class has methods to set ServiceHistory and MaintenanceSchedule
+        vehicle.setServiceHistory(newServiceHistory);
+        vehicle.setMaintenanceSchedule(newMaintenanceSchedule);
+    
+        System.out.println("Vehicle added to FleetManager: " + vehicle);
     }
     
-
+// In FleetManager class
+public ObservableList<Service> getAllServicesForFleet() {
+    List<Service> allServices = new ArrayList<>();
+    for (Vehicle vehicle : vehicles) { // Assuming 'vehicles' is your list of vehicles
+        allServices.addAll(vehicle.getServiceHistory().getServices());
+    }
+    return FXCollections.observableArrayList(allServices);
+}
     
 
     public void removeVehicle(Vehicle vehicle) {
         vehicles.remove(vehicle);
-        vehicleServiceHistories.remove(vehicle); // Also remove its service history
+       
+
     }
 
     public void printVehicles() {
@@ -110,13 +131,11 @@ public class FleetManager {
         if (vehicles.contains(oldVehicle)) {
             vehicles.remove(oldVehicle);
             vehicles.add(newVehicle);
-            // Update the service history map
-            ServiceHistory history = vehicleServiceHistories.remove(oldVehicle);
-            vehicleServiceHistories.put(newVehicle, history);
         } else {
             System.out.println("Old vehicle not found in the fleet.");
         }
     }
+    
 
     public Vehicle findVehicleByVin(String vin) {
         for (Vehicle vehicle : vehicles) {
@@ -153,20 +172,22 @@ public void printServiceHistoryForWorkshop(WorkShop workshop) {
     }
 }
 
-    public void updateServiceDetails(Vehicle vehicle, Service oldService, Service newService) {
-        ServiceHistory history = vehicleServiceHistories.get(vehicle);
-        if (history != null && history.getServices().contains(oldService)) {
-            history.deleteService(oldService);
-            history.addService(newService);
-        }
+
+public void updateServiceDetails(Vehicle vehicle, Service oldService, Service newService) {
+    ServiceHistory history = vehicle.getServiceHistory();
+    if (history != null && history.getServices().contains(oldService)) {
+        history.deleteService(oldService);
+        history.addService(newService);
     }
+}
     
-    public void removeServiceFromHistory(Vehicle vehicle, Service service) {
-        ServiceHistory history = vehicleServiceHistories.get(vehicle);
-        if (history != null) {
-            history.deleteService(service);
-        }
+    
+public void removeServiceFromHistory(Vehicle vehicle, Service service) {
+    ServiceHistory history = vehicle.getServiceHistory();
+    if (history != null) {
+        history.deleteService(service);
     }
+}
 
     public void printWorkshopsForVehicle(Vehicle vehicle) {
         Set<WorkShop> servicedWorkshops = new HashSet<>();
@@ -246,7 +267,7 @@ public void printServiceHistoryForWorkshop(WorkShop workshop) {
     // Method to print the total cost for a specific vehicle
 
     public String getTotalCostForVehicleAsString(Vehicle vehicle) {
-        ServiceHistory history = vehicleServiceHistories.get(vehicle);
+        ServiceHistory history = vehicle.getServiceHistory();
         if (history != null) {
             double totalCost = history.calculateTotalCost();
             NumberFormat formatter = NumberFormat.getCurrencyInstance(Locale.US);
@@ -256,6 +277,7 @@ public void printServiceHistoryForWorkshop(WorkShop workshop) {
             return "No service history found for this vehicle.";
         }
     }
+    
     
     // Do the same for the other methods
     
@@ -268,7 +290,7 @@ public void printServiceHistoryForWorkshop(WorkShop workshop) {
         NumberFormat formatter = NumberFormat.getCurrencyInstance(Locale.US);
     
         for (Vehicle vehicle : vehicles) {
-            ServiceHistory history = vehicleServiceHistories.get(vehicle);
+            ServiceHistory history = vehicle.getServiceHistory(); // Get the ServiceHistory directly from Vehicle
             if (history != null) {
                 totalCost += history.calculateTotalCost();
             }
@@ -277,14 +299,15 @@ public void printServiceHistoryForWorkshop(WorkShop workshop) {
         return "Total cost for the entire fleet: " + formatter.format(totalCost);
     }
     
-       
     
+       
     public String getMostExpensiveMaintenanceJobAsString() {
         double maxCost = 0;
         Service mostExpensiveService = null;
         NumberFormat formatter = NumberFormat.getCurrencyInstance(Locale.US);
     
-        for (ServiceHistory history : vehicleServiceHistories.values()) {
+        for (Vehicle vehicle : vehicles) {
+            ServiceHistory history = vehicle.getServiceHistory();
             for (Service service : history.getServices()) {
                 double cost = service.getServiceCost() + service.getPartCost();
                 if (cost > maxCost) {
@@ -295,12 +318,12 @@ public void printServiceHistoryForWorkshop(WorkShop workshop) {
         }
     
         if (mostExpensiveService != null) {
-            // Assuming Service has a toString method that prints its details
             return "Most Expensive Maintenance Job:\n" + mostExpensiveService + "\nTotal Cost: " + formatter.format(maxCost);
         } else {
             return "No maintenance jobs found.";
         }
     }
+    
     
     
 
@@ -326,38 +349,53 @@ public void printServiceHistoryForWorkshop(WorkShop workshop) {
     }
     
     
+    
 
-public double calculateTotalCostForWorkshop(WorkShop workshop) {
-    double totalCost = 0;
-
-    for (ServiceHistory history : vehicleServiceHistories.values()) {
-        for (Service service : history.getServices()) {
-            if (service.getWorkShop().equals(workshop)) {
-                totalCost += service.getServiceCost() + service.getPartCost();
+    public double calculateTotalCostForWorkshop(WorkShop workshop) {
+        double totalCost = 0;
+    
+        for (Vehicle vehicle : vehicles) {
+            ServiceHistory history = vehicle.getServiceHistory();
+            for (Service service : history.getServices()) {
+                if (service.getWorkShop().equals(workshop)) {
+                    totalCost += service.getServiceCost() + service.getPartCost();
+                }
             }
         }
+    
+        return totalCost;
     }
-
-    return totalCost;
-}
-public String calculateAverageMaintenanceCostAsString() {
-    double totalCost = 0;
-    int serviceCount = 0;
-    NumberFormat formatter = NumberFormat.getCurrencyInstance(Locale.US);
-
-    for (ServiceHistory history : vehicleServiceHistories.values()) {
-        for (Service service : history.getServices()) {
-            totalCost += service.getServiceCost() + service.getPartCost();
-            serviceCount++;
+    
+    public String calculateAverageMaintenanceCostAsString() {
+        double totalCost = 0;
+        int serviceCount = 0;
+        NumberFormat formatter = NumberFormat.getCurrencyInstance(Locale.US);
+    
+        for (Vehicle vehicle : vehicles) {
+            ServiceHistory history = vehicle.getServiceHistory();
+            for (Service service : history.getServices()) {
+                totalCost += service.getServiceCost() + service.getPartCost();
+                serviceCount++;
+            }
+        }
+    
+        if (serviceCount > 0) {
+            double averageCost = totalCost / serviceCount;
+            return "Average Maintenance Cost: " + formatter.format(averageCost);
+        } else {
+            return "No maintenance jobs found.";
         }
     }
-
-    if (serviceCount > 0) {
-        double averageCost = totalCost / serviceCount;
-        return "Average Maintenance Cost: " + formatter.format(averageCost);
-    } else {
-        return "No maintenance jobs found.";
+    
+    public int getTotalReplacedPartsCountForVehicle(Vehicle vehicle) {
+        if (vehicle == null) {
+            return 0;
+        }
+        return vehicle.getServiceHistory().getTotalReplacedPartsCount();
     }
-}
+    
+    
+
+
 
 }
