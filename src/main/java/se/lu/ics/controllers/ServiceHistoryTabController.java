@@ -113,13 +113,12 @@ new SimpleObjectProperty<>(cellData.getValue().getServiceCost()));
 tableColumnDateServiceHistoryTab.setCellValueFactory(cellData ->
     new SimpleObjectProperty<LocalDate>(cellData.getValue().getDate()));
 
-    // Assuming getServiceCost() and getPartCost() return int or Integer
+    
 tableColumnServiceCostServiceHistoryTab.setCellValueFactory(cellData ->
 new SimpleObjectProperty<Integer>(cellData.getValue().getServiceCost()));
 tableColumnPartCostServiceHistoryTab.setCellValueFactory(cellData ->
 new SimpleObjectProperty<Integer>(cellData.getValue().getPartCost()));
 
-// For the LocalDate column
 tableColumnDateServiceHistoryTab.setCellValueFactory(cellData ->
 new SimpleObjectProperty<LocalDate>(cellData.getValue().getDate()));
 
@@ -183,7 +182,7 @@ private Service getUserInputForNewService() {
     descriptionField.setPromptText("Description");
 
     ComboBox<Service.ServiceType> serviceTypeComboBox = new ComboBox<>();
-    serviceTypeComboBox.getItems().setAll(Service.ServiceType.values()); // Assuming ServiceType is an enum
+    serviceTypeComboBox.getItems().setAll(Service.ServiceType.values());
 
     DatePicker serviceDatePicker = new DatePicker(LocalDate.now());
 
@@ -191,7 +190,7 @@ private Service getUserInputForNewService() {
     mileageField.setPromptText("Mileage");
 
     ComboBox<Service.PartType> partTypeComboBox = new ComboBox<>();
-    partTypeComboBox.getItems().setAll(Service.PartType.values()); // Assuming PartType is an enum
+    partTypeComboBox.getItems().setAll(Service.PartType.values());
 
     ComboBox<WorkShop> workShopComboBox = new ComboBox<>();
     workShopComboBox.setItems(fleetManager.getWorkshops());
@@ -229,7 +228,7 @@ private Service getUserInputForNewService() {
                 Service.PartType selectedPartType = partTypeComboBox.getValue();
                 WorkShop selectedWorkShop = workShopComboBox.getValue();
 
-                // Use the previously fetched selectedVehicle based on the VIN
+                
                 if (selectedVehicle != null) {
                     return new Service(selectedServiceType, description, mileage, date, selectedPartType, selectedVehicle, selectedWorkShop);
                 } else {
@@ -237,7 +236,7 @@ private Service getUserInputForNewService() {
                     return null;
                 }
             } catch (NumberFormatException e) {
-                // Handle parse exception for mileage
+               
                 System.out.println("Invalid input for mileage");
                 return null;
             }

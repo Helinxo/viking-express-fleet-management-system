@@ -17,8 +17,7 @@ import javafx.scene.layout.StackPane;
     
     
     public class App extends Application {
-        public static void main(String[] args) { launch();
-        }
+        public static void main(String[] args) { launch();}
         @Override
         public  void start(Stage primaryStage) throws Exception {
     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/MainView.fxml"));

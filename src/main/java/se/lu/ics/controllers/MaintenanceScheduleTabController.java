@@ -265,8 +265,7 @@ public void handleButtonShowVinMaintenanceScheduleAction(ActionEvent event) {
     if (vehicle != null) {
         labelVinMaintenanceSchedule.setText(vin);
     } else {
-        // Handle the case where no vehicle is found with the given VIN
-        // For example, show an alert to the user
+      
     }
 }
 
@@ -275,7 +274,7 @@ public void handleButtonShowVinMaintenanceScheduleAction(ActionEvent event) {
 private void setUptableViewMaintenanceScheduleTab() {
    
 
-    // Assuming 'lastServiceDate' is updated from DatePicker or other source
+    
     tableColumnDateMaintenanceScheduleTab.setCellValueFactory(new PropertyValueFactory<>("lastServiceDate"));
     tableColumnLastServiceDistanceMaintenanceScheduleTab.setCellValueFactory(new PropertyValueFactory<>("lastServiceDistance"));
 
@@ -304,16 +303,15 @@ private void setUptableViewMaintenanceScheduleTab() {
     });
     
 
-    // Workshop Name
+    
     tableColumnWorkshopMaintenanceScheduleTab.setCellValueFactory(cellData -> {
         MaintenanceSchedule schedule = cellData.getValue();
         WorkShop workshop = schedule.getMaintenanceWorkshop();
-        return new SimpleStringProperty(workshop != null ? workshop.getName() : "N/A"); // Assuming WorkShop has a getName() method
+        return new SimpleStringProperty(workshop != null ? workshop.getName() : "N/A"); 
     });
 
 
 
-    // ... (other setup)
 }
 private void updateLastServiceFields(String vin) {
     if (vin != null && !vin.isEmpty()) {
