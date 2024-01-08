@@ -1,6 +1,7 @@
 package se.lu.ics.controllers;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
@@ -41,6 +42,21 @@ public class MainViewController {
             calculationTabController.setFleetManager(fleetManager);
             
     
+}
+public void initialize() {
+    tabServiceHistory.setOnSelectionChanged(event -> {
+        if (tabServiceHistory.isSelected()) {
+            showInstructionsPopup();
+        }
+    });
+}
+private void showInstructionsPopup() {
+  Alert alert = new Alert(Alert.AlertType.INFORMATION);
+    alert.setTitle("Instructions");
+    alert.setHeaderText("How to View Service History");
+    alert.setContentText("To view service history of a vehicle, enter the vehicle VIN.\n" +
+                         "Leave the field empty to view service history for all vehicles.");
+    alert.showAndWait();
 }
 
 }

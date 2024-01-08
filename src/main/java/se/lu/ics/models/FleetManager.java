@@ -76,7 +76,7 @@ public class FleetManager {
                 return workshop;
             }
         }
-        return null; // Return null if no workshop is found
+        return null; 
     }
     public void printWorkshopById(String workshopId) {
         WorkShop workshop = findWorkShopById(workshopId);
@@ -89,26 +89,26 @@ public class FleetManager {
    
 
 
-    // CRUD operations for vehicles
+  
 
     public void addVehicle(Vehicle vehicle) {
         this.vehicles.add(vehicle);
         
-        // Initialize ServiceHistory and MaintenanceSchedule for the new vehicle
+       
         ServiceHistory newServiceHistory = new ServiceHistory();
         MaintenanceSchedule newMaintenanceSchedule = new MaintenanceSchedule(vehicle);
     
-        // Assuming Vehicle class has methods to set ServiceHistory and MaintenanceSchedule
+       
         vehicle.setServiceHistory(newServiceHistory);
         vehicle.setMaintenanceSchedule(newMaintenanceSchedule);
     
         System.out.println("Vehicle added to FleetManager: " + vehicle);
     }
     
-// In FleetManager class
+
 public ObservableList<Service> getAllServicesForFleet() {
     List<Service> allServices = new ArrayList<>();
-    for (Vehicle vehicle : vehicles) { // Assuming 'vehicles' is your list of vehicles
+    for (Vehicle vehicle : vehicles) { 
         allServices.addAll(vehicle.getServiceHistory().getServices());
     }
     return FXCollections.observableArrayList(allServices);
@@ -139,38 +139,36 @@ public ObservableList<Service> getAllServicesForFleet() {
 
     public Vehicle findVehicleByVin(String vin) {
         for (Vehicle vehicle : vehicles) {
-            if (vehicle.getVehicleId().equals(vin)) { // Assuming there's a getVin method in Vehicle
+            if (vehicle.getVehicleId().equals(vin)) { 
                 return vehicle;
             }
         }
-        return null; // Return null if no vehicle is found with the given VIN
+        return null; 
     }
     
 
 
 
 
-// Method to print the service history for a specific workshop
-public void printServiceHistoryForWorkshop(WorkShop workshop) {
-    System.out.println("Service History for Workshop: " + workshop.getName());
-    boolean serviceFound = false;
 
-    for (Vehicle vehicle : vehicles) {
-        ServiceHistory history = vehicleServiceHistories.get(vehicle);
-        if (history != null) {
-            for (Service service : history.getServices()) {
-                if (service.getWorkShop().equals(workshop)) {
-                    System.out.println("Vehicle ID: " + vehicle.getVehicleId() + " - " + service);
-                    serviceFound = true;
+    public List<Service> getServiceHistoryForWorkshop(WorkShop workshop) {
+        List<Service> workshopServices = new ArrayList<>();
+        
+        for (Vehicle vehicle : vehicles) {
+            ServiceHistory history = vehicleServiceHistories.get(vehicle);
+            if (history != null) {
+                for (Service service : history.getServices()) {
+                    if (service.getWorkShop().equals(workshop)) {
+                        workshopServices.add(service);
+                    }
                 }
             }
         }
+    
+        return workshopServices;
     }
+    
 
-    if (!serviceFound) {
-        System.out.println("No services found for this workshop.");
-    }
-}
 
 
 public void updateServiceDetails(Vehicle vehicle, Service oldService, Service newService) {
@@ -225,7 +223,7 @@ public void removeServiceFromHistory(Vehicle vehicle, Service service) {
         this.vehicles = vehicles;
     }
 
-    // Method to get the service history for a specific vehicle
+   
     public ServiceHistory getServiceHistory(Vehicle vehicle) {
         return vehicleServiceHistories.get(vehicle);
     }
@@ -248,7 +246,7 @@ public void removeServiceFromHistory(Vehicle vehicle, Service service) {
         }
     }
 
-    // print the service history for the entire fleet
+  
 
     public void printServiceHistoryForEntireFleet() {
         for (Vehicle vehicle : vehicles) {
@@ -264,8 +262,7 @@ public void removeServiceFromHistory(Vehicle vehicle, Service service) {
     }
     
 
-    // Method to print the total cost for a specific vehicle
-
+ 
     public String getTotalCostForVehicleAsString(Vehicle vehicle) {
         ServiceHistory history = vehicle.getServiceHistory();
         if (history != null) {
@@ -277,12 +274,9 @@ public void removeServiceFromHistory(Vehicle vehicle, Service service) {
             return "No service history found for this vehicle.";
         }
     }
+   
     
-    
-    // Do the same for the other methods
-    
-    
-    // Method to print the total cost for the entire fleet
+ 
     
 
     public String getTotalCostForFleetAsString() {
@@ -290,7 +284,7 @@ public void removeServiceFromHistory(Vehicle vehicle, Service service) {
         NumberFormat formatter = NumberFormat.getCurrencyInstance(Locale.US);
     
         for (Vehicle vehicle : vehicles) {
-            ServiceHistory history = vehicle.getServiceHistory(); // Get the ServiceHistory directly from Vehicle
+            ServiceHistory history = vehicle.getServiceHistory(); 
             if (history != null) {
                 totalCost += history.calculateTotalCost();
             }
@@ -394,8 +388,5 @@ public void removeServiceFromHistory(Vehicle vehicle, Service service) {
         return vehicle.getServiceHistory().getTotalReplacedPartsCount();
     }
     
-    
-
-
 
 }

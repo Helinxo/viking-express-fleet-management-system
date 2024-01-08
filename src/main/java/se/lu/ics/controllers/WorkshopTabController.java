@@ -119,7 +119,6 @@ public void setupWorkshops() {
         return new SimpleStringProperty(workshopType);
     });
 
-    // Assuming tableColumnWorkshopVin is for a Service property, replace 'get()' with the appropriate getter
    
 }
 
@@ -181,7 +180,7 @@ public void handleButtonAddWorkshopAction(ActionEvent event) {
     private void showAlert(String message, Alert.AlertType alertType) {
         Alert alert = new Alert(alertType);
         alert.setTitle(alertType == Alert.AlertType.ERROR ? "Error" : "Information");
-        alert.setHeaderText(null); // No header
+        alert.setHeaderText(null); 
         alert.setContentText(message);
         alert.showAndWait();
     }
@@ -253,9 +252,9 @@ public void handleButtonUpdateWorkshopAction(ActionEvent event) {
 }
 
 public void updateWorkShopTableView() {
-    ObservableList<WorkShop> workshopData = fleetManager.getWorkshops(); // Assuming fleetManager.getWorkshops() returns an ObservableList
-    tableViewWorkshop.setItems(workshopData); // Assuming workshopTableView is your TableView
-    tableViewWorkshop.refresh(); // Refresh the view to display the latest data
+    ObservableList<WorkShop> workshopData = fleetManager.getWorkshops(); 
+    tableViewWorkshop.setItems(workshopData); 
+    tableViewWorkshop.refresh(); 
 }
 
 

@@ -25,18 +25,17 @@ public WorkShop(String workshopId, String name, String address, boolean isIntern
 
 }
 
-  // Method to add a service to this workshop
+  
   public void addService(Service service) {
     if (service == null) {
-        // Handle the null case appropriately, e.g., throw an exception or log a warning
+       
         throw new IllegalArgumentException("Service cannot be null");
     }
 
     if (!associatedServices.contains(service)) {
         associatedServices.add(service);
     } else {
-        // Optionally handle the case where the service is already in the list
-        // For example, log a message or ignore
+       
     }
 }
 
@@ -46,7 +45,7 @@ public Vehicle getAssignedVehicle() {
     return this.assignedVehicle;
 }
 
-// Method to set the assigned Vehicle
+
 public void setAssignedVehicle(Vehicle vehicle) {
     this.assignedVehicle = vehicle;
 }

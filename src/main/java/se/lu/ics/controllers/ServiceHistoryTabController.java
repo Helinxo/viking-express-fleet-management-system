@@ -1,7 +1,10 @@
 package se.lu.ics.controllers;
 import java.time.LocalDate;
 import javafx.scene.layout.GridPane;
+
 import javafx.geometry.Insets;
+
+
 import java.util.Optional;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -9,6 +12,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -85,11 +89,8 @@ public class ServiceHistoryTabController {
 
     @FXML 
 public void initialize() {
-    
 
 
-
-    // Correcting the implementation
 tableColumnServiceHistoryDescription.setCellValueFactory(cellData -> 
 new SimpleStringProperty(cellData.getValue().getDescription()));
 tableColumnServiceTypeServiceHistoryTab.setCellValueFactory(cellData ->
@@ -132,8 +133,9 @@ tableColumnVehicleTypeServiceHistoryTab.setCellValueFactory(cellData -> {
     Vehicle vehicle = service.getVehicle();
     return new SimpleStringProperty(vehicle != null ? vehicle.getVehicleType().toString() : "No Vehicle");
 });
-        
-    }
+  
+
+}
     @FXML
     
 public void handleButtonAddServiceHistoryAction(ActionEvent event) {
@@ -191,12 +193,9 @@ private Service getUserInputForNewService() {
     ComboBox<Service.PartType> partTypeComboBox = new ComboBox<>();
     partTypeComboBox.getItems().setAll(Service.PartType.values()); // Assuming PartType is an enum
 
-    // For Workshop, you might need to adapt this depending on your application context
-    // Here I'm using a ComboBox as an example
     ComboBox<WorkShop> workShopComboBox = new ComboBox<>();
     workShopComboBox.setItems(fleetManager.getWorkshops());
-    // Populate workShopComboBox with available workshops
-    // workShopComboBox.getItems().addAll(/* Available Workshops */);
+   
 
     // Layout
     GridPane grid = new GridPane();
@@ -219,7 +218,7 @@ private Service getUserInputForNewService() {
 
     dialog.getDialogPane().setContent(grid);
 
-    // Convert the result when OK button is clicked
+
     dialog.setResultConverter(dialogButton -> {
         if (dialogButton == ButtonType.OK) {
             try {
@@ -264,13 +263,22 @@ public void handleButtonDeleteServiceHistory(ActionEvent event) {
     Service selectedService = tableViewServiceHistory.getSelectionModel().getSelectedItem();
     
     if (selectedService != null && selectedVehicle != null) {
+        // Remove the service from the selectedVehicle's service history
         selectedVehicle.getServiceHistory().deleteService(selectedService);
-        updateServiceHistoryTableView(selectedVehicle);
+        
+        // Remove the service from the TableView
+        tableViewServiceHistory.getItems().remove(selectedService);
+        
+        // Friendly message to the user
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText(null);
+        alert.setContentText("Service deleted successfully!\n" + selectedService.toString());
+        alert.showAndWait();
     } else {
         System.out.println("No service selected for deletion or no vehicle selected.");
     }
 }
-    
 
 
 @FXML
@@ -301,15 +309,14 @@ public void handleButtonUpdateServiceHistoryAction(ActionEvent event) {
         
         ComboBox<Service.ServiceType> serviceTypeComboBox = new ComboBox<>();
         serviceTypeComboBox.getItems().setAll(Service.ServiceType.values());
-        serviceTypeComboBox.setValue(service.getServiceType()); // Pre-populate with existing service type
-    
+        serviceTypeComboBox.setValue(service.getServiceType()); 
         DatePicker serviceDatePicker = new DatePicker(service.getDate());
     
         TextField mileageField = new TextField(String.valueOf(service.getMileage()));
         
         ComboBox<Service.PartType> partTypeComboBox = new ComboBox<>();
         partTypeComboBox.getItems().setAll(Service.PartType.values());
-        partTypeComboBox.setValue(service.getPartType()); // Pre-populate with existing part type
+        partTypeComboBox.setValue(service.getPartType()); 
     
         // Layout
         GridPane grid = new GridPane();
@@ -361,20 +368,20 @@ public void handleButtonUpdateServiceHistoryAction(ActionEvent event) {
     }
     
 
-
-
+    @FXML
     public void handleButtonViewServiceHistoryAction(ActionEvent event) {
-        String vehicleId = textFieldEnterVinServiceHistory.getText().trim();
+        String input = textFieldEnterVinServiceHistory.getText().trim();
     
-        if (!vehicleId.isEmpty()) {
-            // VIN is provided, retrieve the service history for this specific vehicle
-            Vehicle selectedVehicle = fleetManager.findVehicleByVin(vehicleId);
+        if (!input.isEmpty()) {
+            
+            Vehicle selectedVehicle = fleetManager.findVehicleByVin(input);
             updateServiceHistoryTableView(selectedVehicle);
         } else {
-            // No VIN provided, display service history for all vehicles
+            
             updateServiceHistoryTableViewForAllVehicles();
         }
     }
+    
     
     public void updateServiceHistoryTableViewForAllVehicles() {
         ObservableList<Service> allServices = fleetManager.getAllServicesForFleet();

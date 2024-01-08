@@ -164,7 +164,6 @@ public class VehicleTabController {
         tableViewVehicle.refresh();
     }
 
-    @FXML
     public void handleButtonAddVehicleAction(ActionEvent event) {
         System.out.println("Adding a vehicle...");
     
@@ -172,54 +171,55 @@ public class VehicleTabController {
         String brand = textFieldBrand.getText();
         int year = Integer.parseInt(textFieldYear.getText());
         String currentLocation = textfieldCurrentLocation.getText();
-        int currentMileage = 0;
-        LocalDate lastServiceDate = LocalDate.of(year, 1, 1);
-        int lastServiceDistance = currentMileage;
         double cargoCapacity = Double.parseDouble(textFieldCargoCapacity.getText());
-        
-
     
-        // Corrected: Declare vehicleType once
+        int lastServiceDistance = 0;
+        int currentYear = LocalDate.now().getYear();
+        int ageOfVehicle = currentYear - year;
+    
+        LocalDate lastServiceDate;
+        if (ageOfVehicle > 0) {
+            // For older vehicles, set last service date to end of the year
+            lastServiceDate = LocalDate.of(year + ageOfVehicle - 1, 12, 31);
+        } else {
+            // For new vehicles (0 years old), set last service date to current date
+            lastServiceDate = LocalDate.now();
+        }
+    
         String vehicleType = choiceBoxVehicleType.getValue().toString();
-    
-        Vehicle vehicle = null;  // Make sure Vehicle is declared at the beginning of the switch
+        Vehicle vehicle = null;
         switch (vehicleType) {
             case "LargeTruck":
-                vehicle = new LargeTruck(model, brand, year, currentLocation, currentMileage, lastServiceDate, lastServiceDistance, cargoCapacity);
+                vehicle = new LargeTruck(model, brand, year, currentLocation, 0, lastServiceDate, lastServiceDistance, cargoCapacity);
                 break;
             case "MediumTruck":
-                vehicle = new MediumTruck(model, brand, year, currentLocation, currentMileage, lastServiceDate, lastServiceDistance, cargoCapacity);
+                vehicle = new MediumTruck(model, brand, year, currentLocation, 0, lastServiceDate, lastServiceDistance, cargoCapacity);
                 break;
             case "Van":
-                vehicle = new Van(model, brand, year, currentLocation, currentMileage, lastServiceDate, lastServiceDistance, cargoCapacity);
+                vehicle = new Van(model, brand, year, currentLocation, 0, lastServiceDate, lastServiceDistance, cargoCapacity);
                 break;
-            default:
-                System.out.println("Invalid vehicle type: " + vehicleType); // Debugging statement for invalid vehicle types
+                default:
+                System.out.println("Invalid vehicle type: " + vehicleType);
+                showAlert("Error", "Invalid vehicle type.");
+                return; // Early return if vehicle type is invalid
         }
     
-        if (vehicle != null) {
-            System.out.println("Adding vehicle to fleetManager...");
-            fleetManager.addVehicle(vehicle);
-            updateVehicleTableView();
-            System.out.println("Vehicle added successfully!");
-            // clear textfields
-            textFieldModel.clear();
-            textFieldBrand.clear();
-            textFieldYear.clear();
-            textfieldCurrentLocation.clear();
-            textFieldCargoCapacity.clear();
-        } else {
-            System.out.println("Vehicle is null, not adding to fleetManager.");
-        }
-        // Alert
+        fleetManager.addVehicle(vehicle);
+        updateVehicleTableView();
+        clearInputFields();
+        showAlert("Information Dialog", "Vehicle added successfully!");
+    }
+
     
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
-        alert.setHeaderText(null);
-        alert.setContentText("Vehicle added successfully!");
-        alert.showAndWait();
+    private void clearInputFields() {
+        textFieldModel.clear();
+        textFieldBrand.clear();
+        textFieldYear.clear();
+        textfieldCurrentLocation.clear();
+        textFieldCargoCapacity.clear();
     }
     
+  
 @FXML
 public void handleButtonDeleteVehicleAction(ActionEvent event) {
     String vin = textFieldEnterVinVehicle.getText();

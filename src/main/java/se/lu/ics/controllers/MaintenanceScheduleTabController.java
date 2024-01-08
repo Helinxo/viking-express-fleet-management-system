@@ -133,7 +133,6 @@ public class MaintenanceScheduleTabController {
             choiceBoxWorkshop.setItems(workshops);
         }
     }
-
     @FXML
     public void handleButtonCheckMaintenanceAction(ActionEvent event) {
         String vin = textFieldEnterVinMaintenanceSchedule.getText();
@@ -148,18 +147,23 @@ public class MaintenanceScheduleTabController {
     
             if (isMaintenanceDue) {
                 WorkShop assignedWorkshop = vehicle.getAssignedWorkshop();
-                if (assignedWorkshop == null) {
+                // Check if a workshop is already assigned
+                if (assignedWorkshop != null) {
+                    // If a workshop is already assigned, display this information
+                    showAlert("Maintenance Due", "Maintenance is due for vehicle with VIN: " + vin + 
+                              ". Currently assigned to workshop: " + assignedWorkshop.getName());
+                } else {
+                    // If no workshop is assigned, allow user to select one
                     assignedWorkshop = choiceBoxWorkshop.getValue(); // Get selected workshop from ChoiceBox
                     if (assignedWorkshop == null) {
                         showAlert("No Workshop Selected", "Please select a workshop for maintenance.");
                         return; // Exit the method if no workshop is selected
                     }
                     vehicle.setAssignedWorkshop(assignedWorkshop); // Assign the selected workshop
+                    maintenanceSchedule.setMaintenanceWorkshop(assignedWorkshop);
+                    showAlert("Maintenance Due", "Maintenance is due for vehicle with VIN: " + vin + 
+                              ". Assigned to workshop: " + assignedWorkshop.getName());
                 }
-    
-                maintenanceSchedule.setMaintenanceWorkshop(assignedWorkshop);
-                showAlert("Maintenance Due", "Maintenance is due for vehicle with VIN: " + vin + 
-                          ". Assigned to workshop: " + assignedWorkshop.getName());
             } else {
                 LocalDate nextServiceDueDate = maintenanceSchedule.calculateNextServiceDueDate();
                 showAlert("Maintenance Status", "No immediate maintenance required for VIN: " + vin + 
@@ -171,62 +175,49 @@ public class MaintenanceScheduleTabController {
     }
     
     
-    
-
-    
     @FXML
-    public void handleButtonConfirmAction(ActionEvent event) {
-        String vin = textFieldEnterVinMaintenanceSchedule.getText();
-        LocalDate lastServiceDate = LocalDate.parse(textFieldLastServiceDate.getText()); // Assuming date format is correct
-        int lastServiceDistance = Integer.parseInt(textFieldLastServiceDistance.getText()); // Assuming the distance is an integer
-        ServiceType serviceType = choiceBoxServiceType.getValue();
-        PartType partType = choiceBoxPartTypes.getValue();
-        WorkShop selectedWorkshop = choiceBoxWorkshop.getValue();
-    
-        Vehicle vehicle = fleetManager.findVehicleByVin(vin);
-    
-        if (vehicle != null) {
-            ServiceHistory serviceHistory = vehicle.getServiceHistory();
-            MaintenanceSchedule maintenanceSchedule = vehicle.getMaintenanceSchedule();
-    
-            // Create a new Service object
-            Service newService = new Service();
-            newService.setDate(lastServiceDate);
-            newService.setServiceType(serviceType);
-            newService.setPartType(partType);
-            newService.setWorkShop(selectedWorkshop);
-            newService.setVehicle(vehicle); 
-    
-            serviceHistory.addService(newService);
-    
-            // Update the existing MaintenanceSchedule of the vehicle
-            maintenanceSchedule.setLastServiceDistance(lastServiceDistance);
-            maintenanceSchedule.setLastServiceDate(lastServiceDate);
-            maintenanceSchedule.setMaintenanceWorkshop(selectedWorkshop);
-            // Update partType and serviceType in the MaintenanceSchedule
-            maintenanceSchedule.setPartType(partType);
-            maintenanceSchedule.setServiceType(serviceType);
-    
-            // Check if regular service is needed by comparing dates
-            LocalDate pickedDate = datePickerDate.getValue();
-            if (maintenanceSchedule.needsRegularService(vehicle.getCurrentMileage(), pickedDate)) {
-                showAlert("Maintenance Warning", "Regular maintenance is due for the vehicle with VIN: " + vin);
-            }
-    
-            // Update your table view here to reflect the new service
-            updateServiceTableView();
-    
-            // Clearing input fields
-            clearInputFields();
-    
-            labelVehicleTypeMaintenanceScheduleTab.setText(vehicle.getClass().getSimpleName());
-            labelVinMaintenanceSchedule.setText(vin);
-    
-            showAlert("Success", "Service added successfully for vehicle with VIN: " + vin);
-        } else {
-            showAlert("Vehicle not found", "No vehicle found with VIN: " + vin);
-        }
+public void handleButtonConfirmAction(ActionEvent event) {
+    String vin = textFieldEnterVinMaintenanceSchedule.getText();
+    // Use the date from datePickerDate instead of textFieldLastServiceDate
+    LocalDate maintenanceDate = datePickerDate.getValue(); 
+    int lastServiceDistance = Integer.parseInt(textFieldLastServiceDistance.getText());
+    ServiceType serviceType = choiceBoxServiceType.getValue();
+    PartType partType = choiceBoxPartTypes.getValue();
+    WorkShop selectedWorkshop = choiceBoxWorkshop.getValue();
+
+    Vehicle vehicle = fleetManager.findVehicleByVin(vin);
+
+    if (vehicle != null) {
+        ServiceHistory serviceHistory = vehicle.getServiceHistory();
+        MaintenanceSchedule maintenanceSchedule = vehicle.getMaintenanceSchedule();
+
+        // Create and add new service
+        Service newService = new Service();
+        newService.setDate(maintenanceDate);
+        newService.setServiceType(serviceType);
+        newService.setPartType(partType);
+        newService.setWorkShop(selectedWorkshop);
+        newService.setVehicle(vehicle);
+        serviceHistory.addService(newService);
+
+        // Update MaintenanceSchedule with new last service date
+        maintenanceSchedule.setLastServiceDistance(lastServiceDistance);
+        maintenanceSchedule.setLastServiceDate(maintenanceDate);
+        maintenanceSchedule.setMaintenanceWorkshop(selectedWorkshop);
+        maintenanceSchedule.setPartType(partType);
+        maintenanceSchedule.setServiceType(serviceType);
+
+        // Update UI
+        updateServiceTableView();
+        updateLastServiceFields(vin); // Refresh displayed last service date
+
+        clearInputFields();
+        showAlert("Success", "Service added successfully for vehicle with VIN: " + vin);
+    } else {
+        showAlert("Vehicle not found", "No vehicle found with VIN: " + vin);
     }
+}
+
     
     
     

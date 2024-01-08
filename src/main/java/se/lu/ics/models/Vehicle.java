@@ -8,7 +8,7 @@ public class Vehicle {
     private String brand;
     private String model;
     private int year;
-    private double cargoCapacity; // Cargo capacity
+    private double cargoCapacity; 
     private int currentMileage;
     private LocalDate lastServiceDate;
     private String currentLocation;
@@ -41,7 +41,7 @@ public class Vehicle {
     }
 
 
-        // Other properties and methods
+      
     
         public boolean isLargeTruck() {
             return this instanceof LargeTruck;
@@ -130,6 +130,6 @@ public class Vehicle {
     }
 
     public String getVehicleType() {
-        return "Vehicle"; // Default type
+        return "Vehicle"; 
     }
 }
