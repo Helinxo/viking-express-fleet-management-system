@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+
+<AnchorPane fx:id="anchorPaneServiceHistoryTab" fx:controller="se.lu.ics.controllers.ServiceHistoryTabController" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+     <children>
+                        <Label fx:id="labelVinServiceHistory" layoutX="23.0" layoutY="512.0" text="Vin" />
+                        <Button fx:id="buttonAddServiceHistory" layoutX="292.0" layoutY="507.0" mnemonicParsing="false" onAction="#handleButtonAddServiceHistoryAction" prefHeight="26.0" prefWidth="114.0" text="Add " />
+                        <Button fx:id="buttonDeleteServiceHistory" layoutX="418.0" layoutY="507.0" mnemonicParsing="false" onAction="#handleButtonDeleteServiceHistory" prefHeight="26.0" prefWidth="114.0" text="Delete" />
+                        <Button fx:id="buttonUpdateServiceHistory" layoutX="547.0" layoutY="507.0" mnemonicParsing="false" onAction="#handleButtonUpdateServiceHistoryAction" prefHeight="26.0" prefWidth="114.0" text="Update" />
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="465.0" prefWidth="803.0">
+                           <children>
+                              <ScrollPane layoutX="-3.0" layoutY="-3.0" prefHeight="462.0" prefWidth="805.0">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="463.0" prefWidth="1340.0">
+                                       <children>
+                                          <TableView fx:id="tableViewServiceHistory" prefHeight="466.0" prefWidth="1340.0" editable="true">
+                                            <columns>
+                                              <TableColumn fx:id="tableColumnVinServiceHistoryTab" prefWidth="90.0" text="Vin" editable="true"/>
+                                              <TableColumn fx:id="tableColumnVehicleTypeServiceHistoryTab" prefWidth="120.0" text="Vehicle type " />
+                                                <TableColumn fx:id="tableColumnWorkshopServiceHistoryTab" prefWidth="120.0" text="Workshop" />
+                                                <TableColumn fx:id="tableColumnServiceTypeServiceHistoryTab" prefWidth="125.0" text="Service type" editable="true"/>
+                                                <TableColumn fx:id="tableColumnServiceHistoryDescription" prefWidth="130.0" text="Description" editable="true" />
+                                                <TableColumn fx:id="tableColumnLastServiceDateServiceHistoryTab" prefWidth="120.0" text="Last Service Date" editable="true" />
+                                                <TableColumn fx:id="tableColumnDateServiceHistoryTab" prefWidth="120.0" text="Date" />
+                                                <TableColumn fx:id="tableColumnServiceCostServiceHistoryTab" prefWidth="120.0" text="Service Cost" />
+                                                <TableColumn fx:id="tableColumnPartTypeServiceHistoryTab" prefWidth="120.0" text="Part Type" editable="true" />
+                                                <TableColumn fx:id="tableColumnPartCostServiceHistoryTab" prefWidth="120.0" text="Part Cost" editable="true" />
+                                                <TableColumn fx:id="tableColumnReplacedPartsServiceHistoryTab" prefWidth="140.0" text="Replaced Parts"  />
+                                            </columns>
+                                          </TableView>
+                                       </children>
+                                    </AnchorPane>
+                                </content>
+                              </ScrollPane>
+                           </children>
+                        </AnchorPane>
+                        <TextField fx:id="textFieldEnterVinServiceHistory" layoutX="64.0" layoutY="508.0" promptText="Enter vin" />
+                        <Button fx:id="buttonViewServiceHistory" layoutX="677.0" layoutY="508.0" mnemonicParsing="false" onAction="#handleButtonViewServiceHistoryAction" prefHeight="26.0" prefWidth="112.0" text="View" />
+                     </children>
+</AnchorPane>

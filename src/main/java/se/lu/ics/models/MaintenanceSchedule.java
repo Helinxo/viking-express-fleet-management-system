@@ -1,75 +1,114 @@
 package se.lu.ics.models;
 import java.time.LocalDate;
+import se.lu.ics.models.Service.PartType;
+import se.lu.ics.models.Service.ServiceType;
+
 
 public class MaintenanceSchedule {
 
     private ServiceHistory serviceHistory;
-    private WorkShop maintenanceWorkshop; // Property to store the workshop responsible for maintenance
+    private WorkShop maintenanceWorkshop; 
+    private Vehicle vehicle; 
+    private PartType partType;
+    private ServiceType serviceType;
 
-    private static final int REGULAR_SERVICE_DISTANCE_THRESHOLD = 30000; // Threshold in kilometers
-    private static final int REGULAR_SERVICE_TIME_THRESHOLD = 3; // Threshold in months
+
+    private static final int REGULAR_SERVICE_DISTANCE_THRESHOLD = 30000; 
+    private static final int REGULAR_SERVICE_TIME_THRESHOLD = 3; 
 
     private int lastServiceDistance;
     private LocalDate lastServiceDate;
 
-    // Default constructor
+    public MaintenanceSchedule(int lastServiceDistance, LocalDate lastServiceDate, WorkShop maintenanceWorkshop, String vin,  String vehicleType, Service.ServiceType serviceType, Service.PartType partType) {
+    this.lastServiceDistance = lastServiceDistance;
+    this.lastServiceDate = lastServiceDate;
+    this.maintenanceWorkshop = maintenanceWorkshop;
+    this.partType = partType;  
+    this.serviceType = serviceType; 
+    
+}
+
+
+    public MaintenanceSchedule(Vehicle vehicle) {
+        this.vehicle = vehicle;
+        this.lastServiceDate = LocalDate.now();
+        this.serviceHistory = new ServiceHistory();
+    }
+   
+
+   
     public MaintenanceSchedule() {
         this.lastServiceDate = LocalDate.now();
+        this.serviceHistory = new ServiceHistory();
     }
 
-    // Constructor with ServiceHistory and WorkShop
+    
     public MaintenanceSchedule(ServiceHistory serviceHistory, WorkShop maintenanceWorkshop) {
         this.serviceHistory = serviceHistory;
         this.maintenanceWorkshop = maintenanceWorkshop;
         this.lastServiceDate = LocalDate.now(); 
     }
 
-    // Constructor with last service details and WorkShop
+   
     public MaintenanceSchedule(int lastServiceDistance, LocalDate lastServiceDate, WorkShop maintenanceWorkshop) {
         this.lastServiceDistance = lastServiceDistance;
         this.lastServiceDate = lastServiceDate;
         this.maintenanceWorkshop = maintenanceWorkshop;
     }
 
-    // Method to perform service
+    
     public void performService(Service.ServiceType serviceType, Vehicle vehicle) {
-        // Create a new Service object with the necessary details
+        
         Service service = createService(serviceType, vehicle, this.maintenanceWorkshop);
         
-        // Add this service to the service history
+       
         if (serviceHistory != null) {
             serviceHistory.addService(service);
         }
     }
 
-    // Helper method to create a Service object
+    
     private Service createService(Service.ServiceType serviceType, Vehicle vehicle, WorkShop workshop) {
         Service service = new Service();
         service.setServiceType(serviceType);
         service.setWorkShop(workshop);
-        // Set other service properties as needed
+        
         return service;
     }
 
-    // Check if regular service is needed
-    public boolean needsRegularService(int currentDistance) {
+    
+    public boolean needsRegularService(int currentDistance, LocalDate currentDate) {
         if (currentDistance < 0) {
             throw new IllegalArgumentException("Current distance cannot be negative.");
         }
-        LocalDate currentDate = LocalDate.now();
         return (currentDistance - lastServiceDistance >= REGULAR_SERVICE_DISTANCE_THRESHOLD) ||
             currentDate.isAfter(lastServiceDate.plusMonths(REGULAR_SERVICE_TIME_THRESHOLD));
     }
+    
 
-    // Method to perform regular service
-    public void performRegularService(int currentDistance) {
-        if (needsRegularService(currentDistance)) {
+    
+    public void performRegularService(int currentDistance, LocalDate currentDate) {
+        if (needsRegularService(currentDistance, currentDate)) {
             // Perform regular service tasks
             this.lastServiceDistance = currentDistance;
             this.lastServiceDate = LocalDate.now();
         }
     }
+    
 
+
+
+    public PartType getPartType() {
+        return partType;
+    }
+
+    
+
+    public ServiceType getServiceType() {
+        return serviceType;
+    }
+
+   
     // Getters and Setters
     public ServiceHistory getServiceHistory() {
         return serviceHistory;
@@ -111,6 +150,18 @@ public class MaintenanceSchedule {
         return REGULAR_SERVICE_TIME_THRESHOLD;
     }
 
+    public Vehicle getVehicle() {
+        return this.vehicle;
+    }
+
+    public void setPartType(PartType partType) {
+        this.partType = partType;
+    }
+    
+    public void setServiceType(ServiceType serviceType) {
+        this.serviceType = serviceType;
+    }
+
     @Override
     public String toString() {
         return "MaintenanceSchedule{" +
@@ -120,4 +171,21 @@ public class MaintenanceSchedule {
                 ", lastServiceDate=" + lastServiceDate +
                 '}';
     }
+
+
+
+    public LocalDate calculateNextServiceDueDate() {
+        // Assuming you want to use the current mileage of the vehicle
+        int currentDistance = this.vehicle.getCurrentMileage();
+    
+        LocalDate nextDueDateBasedOnTime = lastServiceDate.plusMonths(REGULAR_SERVICE_TIME_THRESHOLD);
+        int distanceForNextService = REGULAR_SERVICE_DISTANCE_THRESHOLD - (currentDistance - lastServiceDistance);
+    
+        if (distanceForNextService <= 0) {
+            return LocalDate.now();
+        }
+    
+        return nextDueDateBasedOnTime;
+    }
+    
 }

@@ -10,6 +10,7 @@ public class WorkShop {
     private String address;
     private boolean isInternal;
     private ObservableList<Service> associatedServices;
+    private Vehicle assignedVehicle;
 
 
 
@@ -24,22 +25,30 @@ public WorkShop(String workshopId, String name, String address, boolean isIntern
 
 }
 
-  // Method to add a service to this workshop
+  
   public void addService(Service service) {
     if (service == null) {
-        // Handle the null case appropriately, e.g., throw an exception or log a warning
+       
         throw new IllegalArgumentException("Service cannot be null");
     }
 
     if (!associatedServices.contains(service)) {
         associatedServices.add(service);
     } else {
-        // Optionally handle the case where the service is already in the list
-        // For example, log a message or ignore
+       
     }
 }
 
 // Getters and Setters
+
+public Vehicle getAssignedVehicle() {
+    return this.assignedVehicle;
+}
+
+
+public void setAssignedVehicle(Vehicle vehicle) {
+    this.assignedVehicle = vehicle;
+}
 
 public ObservableList<Service> getAssociatedServices() {
     return FXCollections.unmodifiableObservableList(associatedServices);
